@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вход · Академия Dental Profi</title>
+<meta name="description" content="Учебные материалы Академии ортопедов Dental Profi">
+<link rel="icon" href="assets/mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="index.html"><img src="assets/logo.png" alt="Денталь Профи"><span>Академия ортопедов</span></a>
+<nav><a href="index.html#bloki">Блоки</a><a href="kabinety.html">Кабинеты</a><a class="login" id="login-link" href="vhod.html">Войти</a></nav>
+</div></header>
+<main>
+<section class="bhero"><div class="wrap"><p class="kicker">Академия ортопедов</p>
+<h1>Вход</h1><p class="lead">Выберите свою роль, и сайт откроет ваш кабинет.</p></div></section>
+<div class="wrap narrow">
+<form class="panel login" id="login-form">
+<label class="fld"><span>Как к вам обращаться</span><input name="name" autocomplete="name" placeholder="Имя и фамилия"></label>
+<fieldset><legend>Роль</legend><label class="role"><input type="radio" name="role" value="uchenik" checked><span><b>Ученик</b><small>Стажёр и будущий врач-ортопед</small></span></label><label class="role"><input type="radio" name="role" value="kurator"><span><b>Куратор</b><small>Старший ортопед</small></span></label><label class="role"><input type="radio" name="role" value="rukovoditel"><span><b>Руководитель Академии</b><small>Клиническая логика и утверждение материалов</small></span></label></fieldset>
+<button class="btn" type="submit">Войти</button>
+<button class="btn ghost" type="button" id="logout">Выйти</button>
+</form>
+<div class="draft">Вход пока учебный: он запоминает вас только в этом браузере и не закрывает страницы от посторонних. Поэтому здесь нет данных пациентов, консультаций и цен.</div>
+</div>
+</main>
+<footer class="foot"><div class="wrap">Академия ортопедов Dental Profi · учебные материалы</div></footer>
+<script>window.SITE_ROOT = "";</script>
+<script src="assets/app.js"></script>
+</body>
+</html>

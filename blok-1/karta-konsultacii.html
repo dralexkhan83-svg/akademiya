@@ -1,0 +1,1407 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Карта первичной консультации – Денталь Профи (интерактивная, v2.3)</title>
+<style>
+*{box-sizing:border-box}
+:root{
+  --navy:#1c3667; --navy2:#2b4f8e; --ink:#22304a; --muted:#5f6f8a;
+  --line:#c3cfe2; --panel:#e9eef6; --paper:#ffffff;
+  --pink:#fbdcd3; --pinkline:#e9bda9;
+  --peach:#f7ead8; --peachline:#e8d2b4;
+  --green:#e9f2ec; --blue:#eef3fa;
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#d9e0eb;font-family:"Segoe UI","PT Sans",Verdana,Arial,sans-serif;color:var(--ink);font-size:14px;line-height:1.4}
+.wrap{max-width:1250px;margin:0 auto;padding:18px 16px 40px}
+.sheet{background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 22px rgba(23,44,84,.10);padding:22px 24px;margin:0 0 20px}
+.brand{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--navy);padding-bottom:12px;margin-bottom:14px}
+.logo{display:flex;align-items:center;gap:11px}
+.lgimg{height:92px;width:auto;border-radius:10px;display:block;box-shadow:0 3px 12px rgba(23,44,84,.22)}
+.inlinegrp label.cb{align-items:center}
+.logo svg{width:46px;height:46px;flex:none}
+.lg-name{font-weight:800;letter-spacing:.32em;color:var(--navy);font-size:15px;white-space:nowrap}
+.lg-sub{font-size:9.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-top:3px}
+.ttl{text-align:right}
+.ttl h1{margin:0;color:var(--navy);font-size:clamp(19px,2.6vw,27px);letter-spacing:.04em;text-transform:uppercase;font-weight:800}
+.ver{color:var(--muted);font-size:12px;margin-top:2px}
+.idrow{display:grid;grid-template-columns:1.2fr 1.2fr .62fr;gap:12px;margin-bottom:6px}
+.idf{display:flex;align-items:center;gap:8px}
+.idf b{color:var(--navy);font-size:13px;white-space:nowrap}
+.idf input{flex:1;min-width:0}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;align-items:start}
+.col{min-width:0}
+section.sec{border:1px solid var(--line);border-radius:9px;background:#fff;overflow:hidden;margin-top:14px}
+.sec>h2{margin:0;padding:8px 12px;background:var(--panel);color:var(--navy);font-size:13.5px;letter-spacing:.03em;border-bottom:1px solid var(--line);text-transform:uppercase;font-weight:800}
+.sec>h2 .h2note{font-weight:600;text-transform:none;letter-spacing:0;color:#6c7a92;font-size:11.5px;white-space:nowrap}
+.sec .bd{padding:10px 12px 12px}
+.sec.peach{border-color:var(--peachline)}
+.sec.peach>h2{background:#f3e3cd;border-bottom-color:var(--peachline)}
+.sec.peach .bd{background:var(--peach)}
+.hint{color:var(--muted);font-size:12px;margin:0 0 6px}
+.subhead{font-weight:800;color:var(--navy);font-size:12.5px;margin:10px 0 5px}
+.bd>div:first-child>.subhead{margin-top:2px}
+.cbs{display:flex;flex-wrap:wrap;gap:5px 18px}
+.cbs.gridauto{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:4px 10px}
+label.cb{display:inline-flex;align-items:flex-start;cursor:pointer;font-size:13.5px;padding:2px 0;line-height:1.3;position:relative}
+label.cb input[type=checkbox],label.cb input[type=radio],.nm input[type=radio]{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+label.cb input+span::before,.nm input+span::before{content:"";display:inline-block;width:15px;height:15px;box-sizing:border-box;border:1.7px solid var(--navy);border-radius:3.5px;background:#fff;margin-right:7px;vertical-align:-2.5px;line-height:12px;text-align:center;font-size:11px;font-weight:900;color:var(--navy)}
+label.cb input[type=radio]+span::before,.nm input+span::before{border-radius:50%}
+label.cb input[type=checkbox]:checked+span::before{content:"✔"}
+label.cb input[type=radio]:checked+span::before,.nm input:checked+span::before{content:"●";font-size:8.5px;line-height:11.5px}
+label.cb input:focus-visible+span::before,.nm input:focus-visible+span::before{outline:2px solid rgba(43,79,142,.6);outline-offset:1px}
+input[type=text],input[type=date],textarea{background:var(--pink);border:1px solid var(--pinkline);border-radius:5px;padding:6px 9px;font:inherit;font-size:13.5px;color:#232a36;min-width:0}
+input[type=text]:focus,input[type=date]:focus,textarea:focus{outline:2px solid rgba(43,79,142,.55);outline-offset:1px;border-color:var(--navy2);background:#fde7de}
+textarea{width:100%;resize:vertical;min-height:58px;display:block}
+.inline{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:7px}
+.inline .lb{font-size:13px;color:#3a4a68;white-space:nowrap}
+.grow{flex:1 1 170px}
+.w-sm{width:92px}
+.inlinegrp{display:flex;align-items:center;gap:6px 14px;flex-wrap:wrap;margin-top:7px}
+.inlinegrp .lb{font-size:13px;color:#3a4a68;font-weight:600}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+label.cat{display:block;border:1.5px solid var(--line);border-radius:9px;padding:11px 12px;cursor:pointer;transition:box-shadow .15s,border-color .15s;background:var(--blue)}
+label.cat.c2{background:var(--peach);border-color:var(--peachline)}
+label.cat.c3{background:var(--green);border-color:#cfe0d3}
+.cat .nm{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--navy);font-size:13.5px;letter-spacing:.02em}
+.cat .ds{display:block;font-size:11.8px;color:#44536e;margin-top:6px;line-height:1.4}
+label.cat:has(input:checked){border-color:var(--navy);box-shadow:0 0 0 2px var(--navy) inset}
+.note{background:var(--peach);border:1px solid var(--peachline);border-radius:8px;padding:9px 12px;font-size:12.3px;margin-top:14px;color:#43506b}
+.note b{color:var(--navy)}
+.sheet2head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;border-bottom:2px solid var(--navy);padding-bottom:10px;margin-bottom:4px}
+.sheet2head h1{margin:0;color:var(--navy);font-size:clamp(17px,2.2vw,22px);text-transform:uppercase;font-weight:800;letter-spacing:.03em}
+.sheet2head .note{margin-top:0;max-width:560px;font-size:11.5px}
+.actions{display:flex;flex-direction:column;align-items:center;gap:12px;margin:10px 0 14px}
+.btn.big{padding:19px 46px;font-size:18.5px;border-radius:13px;letter-spacing:.01em}
+.savehint{max-width:560px;text-align:center;font-size:13px;line-height:1.5;color:#3a4a68;background:#fff;border:1px dashed var(--line);border-radius:9px;padding:9px 14px}
+.btn.mini{padding:7px 15px;font-size:12.5px;font-weight:600;background:#fff;color:#5b6a86;border:1px solid #aab7cc;border-radius:8px}
+.btn.mini:hover{color:var(--navy);border-color:var(--navy)}
+.btn.clearbtn{padding:8px 16px;font-size:13px;font-weight:700;background:#fff;color:#5b6a86;border:1.5px solid #aab7cc;border-radius:9px}
+.btn.clearbtn:hover{color:#b3402f;border-color:#c98383}
+.btn.clearbtn.go{background:#eef7f0;color:#1f6b3a;border-color:#4f9d6b}
+.btn.clearbtn.go:hover{background:#e2f1e6;color:#1f6b3a;border-color:#4f9d6b}
+.readiness{background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:8px 20px;font-weight:700;color:#5b6a86;font-size:13.5px}
+.readiness.ok{background:#eef7f0;border-color:#4f9d6b;color:#1f6b3a}
+.readiness.warn{background:#fdf6e7;border-color:#d99a2b;color:#8a5b00}
+.missing{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;max-width:800px;margin-top:-6px}
+.missing .mlb{font-size:12.5px;font-weight:800;color:#5b6a86}
+.chip{border:1.5px solid #d99a2b;background:#fdf6e7;color:#8a5b00;border-radius:999px;padding:3px 12px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
+.chip:hover{background:#f7ead8;border-color:#b3402f;color:#b3402f}
+.req{color:#c43b2e;font-weight:900}
+.topnote{margin:2px 0 4px}
+.pitem{margin:2px 0}
+.pitem .nest{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:3px 0 5px 22px}
+.pitem .nest .lb{font-size:13px;color:#3a4a68;white-space:nowrap}
+.pitem .nest.off{opacity:.55}
+.nest input[disabled]{background:#f1f3f6;border:1px dashed #c2cbd8;cursor:not-allowed}
+.sheet input[type=text]:focus,.sheet input[type=date]:focus,.sheet textarea:focus{outline:2px solid #1c3667;outline-offset:1px;background:#fff}
+.rub{font-weight:800;color:#3a4a68}
+.cb input[disabled]+span{opacity:.55}
+.nest.off .cb input[disabled]+span{opacity:1}
+.minirow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.fld-err{outline:2px solid #c43b2e!important;outline-offset:2px;border-color:#c43b2e!important;background:#fdeae6!important}
+.sec-err{border-color:#c43b2e!important;box-shadow:0 0 0 2px rgba(196,59,46,.35)!important}
+.btn{font:inherit;font-weight:700;border-radius:10px;cursor:pointer;padding:13px 22px;font-size:15px;border:2px solid transparent;transition:transform .05s,box-shadow .15s}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:linear-gradient(180deg,#2b4f8e,#1c3667);color:#fff;box-shadow:0 6px 16px rgba(28,54,103,.35)}
+.btn.primary:hover{box-shadow:0 8px 20px rgba(28,54,103,.45)}
+.btn.outline{background:#fff;color:var(--navy);border-color:var(--navy)}
+.btn.ghost{background:transparent;color:#5b6a86;border-color:#aab7cc}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(8px);background:#16294d;color:#fff;padding:11px 20px;border-radius:9px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:60;box-shadow:0 10px 26px rgba(10,25,55,.4)}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (max-width:920px){
+  .cols{grid-template-columns:1fr}
+  .cats{grid-template-columns:1fr}
+  .idrow{grid-template-columns:1fr}
+  .ttl{text-align:left}
+  .lgimg{height:72px}
+}
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  body{background:#fff}
+  .wrap{max-width:none;padding:0}
+  .sheet{box-shadow:none;border:none;border-radius:0;padding:0 0 10px;margin:0}
+  .sheet+.sheet{page-break-before:always;padding-top:8px}
+  .actions,.toast{display:none!important}
+  input[type=text],input[type=date],textarea{background:#fff;border:1px solid #b7846f}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ЛИСТ 1 -->
+<div class="sheet">
+  <div class="brand">
+    <img class="lgimg" src="data:image/jpeg;base64,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" alt="Денталь Профи – центр восстановления улыбок">
+    <div class="ttl">
+      <h1>Карта первичной консультации</h1>
+      <div style="font:600 11px/1.4 Arial,sans-serif;color:#8a93a0;margin-top:2px">Рабочая версия 2.3 · если у вас другая – возьмите актуальный файл в общей папке клиники</div>
+      <div class="ver">версия 2.2 · интерактивная</div>
+    </div>
+  </div>
+
+  <div class="idrow">
+    <label class="idf"><b>Пациент <span class="req">*</span></b><input type="text" id="f-patient" name="patient_name" placeholder="ФИО пациента"></label>
+    <label class="idf"><b>Первичный врач <span class="req">*</span></b><input type="text" id="f-doctor" name="primary_doctor" placeholder="ФИО врача"></label>
+    <label class="idf"><b>Дата <span class="req">*</span></b><input type="date" id="f-date" name="consultation_date"></label>
+  </div>
+  <!--
+    Скрытые технические идентификаторы для будущей интеграции с Dental Profi OS.
+    В автономной версии остаются пустыми, не участвуют в валидации и не выводятся в Word.
+    В будущей веб-версии идентификаторы пациента и записи будут повторно подставляться
+    внешней системой. Кнопка очистки не должна самостоятельно менять системный контекст,
+    переданный Dental Profi OS.
+  -->
+  <div class="sysids" hidden>
+    <input type="hidden" id="dental_profi_patient_id" name="dental_profi_patient_id">
+    <input type="hidden" id="infodent_patient_id" name="infodent_patient_id">
+    <input type="hidden" id="infodent_appointment_id" name="infodent_appointment_id">
+    <input type="hidden" id="bitrix_contact_id" name="bitrix_contact_id">
+    <input type="hidden" id="bitrix_deal_id" name="bitrix_deal_id">
+    <input type="hidden" id="consultation_id" name="consultation_id">
+    <input type="hidden" id="form_version" name="form_version" value="2.3">
+  </div>
+<div class="note topnote"><b>Как заполнять.</b> Обязательные поля отмечены символом <span class="req">*</span>: пациент, первичный врач, дата, основной запрос пациента, что обсуждено с пациентом, следующий шаг и категория пациента. Без их заполнения карту нельзя завершить. Остальные поля заполняйте при наличии информации. Чем точнее и подробнее заполнена карта, тем проще составить план лечения и продолжить сопровождение пациента.</div>
+
+  <div class="cols">
+    <div class="col">
+
+      <section class="sec" data-order="1" data-part="Часть 1 · Карта первичной консультации" data-title="Источник обращения">
+        <h2>Источник обращения</h2>
+        <div class="bd">
+          <div class="cbs">
+            <label class="cb"><input name="source_rekomendatsiya_znakomogo" type="checkbox" data-label="Рекомендация знакомого"><span>Рекомендация знакомого</span></label>
+            <label class="cb"><input name="source_znakomye_rodstvenniki" type="checkbox" data-label="Знакомые / родственники"><span>Знакомые / родственники</span></label>
+            <label class="cb"><input name="source_napravlenie_vracha" type="checkbox" data-label="Направление врача"><span>Направление врача</span></label>
+            <label class="cb"><input name="source_internet_reklama" type="checkbox" data-label="Интернет / реклама"><span>Интернет / реклама</span></label>
+            <label class="cb"><input name="source_ne_utochnyalos" type="checkbox" data-label="Не уточнялось"><span>Не уточнялось</span></label>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Укажите источник обращения в пункте «Другое».">
+            <label class="cb"><input type="checkbox" class="pmain" id="source_other" name="source_other" data-label="Другое"><span>Другое</span></label>
+            <div class="nest off"><span class="lb">Что именно:</span><input type="text" class="grow pnest" id="source_other_text" name="source_other_text" data-label="Другое (уточнение)" disabled></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" data-order="10" data-part="Часть 1 · Карта первичной консультации" data-title="1. Основной запрос пациента">
+        <h2>1. Основной запрос пациента <span class="req">*</span></h2>
+        <div class="bd">
+          <p class="hint">Что беспокоит и что пациент хочет решить?</p>
+          <textarea rows="3" data-label="" id="patient_main_request" name="patient_main_request"></textarea>
+        </div>
+      </section>
+
+      <section class="sec" id="preliminary_treatment_plan" data-order="20" data-part="Часть 1 · Карта первичной консультации" data-title="2. Что обсуждено с пациентом (предварительный план лечения)" data-doc-title="2. Что обсуждено с пациентом">
+        <h2>2. Что обсуждено с пациентом <span class="h2note">(предварительный план лечения)</span> <span class="req">*</span></h2>
+        <div class="bd">
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_prof_hygiene" name="plan_prof_hygiene" data-label="Профессиональная гигиена"><span>Профессиональная гигиена</span></label>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Укажите зубы или область пародонтологического лечения.">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_periodontology" name="plan_periodontology" data-label="Пародонтология"><span>Пародонтология</span></label>
+            <div class="nest off"><span class="lb">Зубы / область:</span><input type="text" class="grow pnest" id="periodontology_teeth" name="periodontology_teeth" data-label="Зубы / область" placeholder="например: зубы 31–41 или генерализованно" disabled></div>
+          </div>
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_full_sanation" name="plan_full_sanation" data-label="Полная санация"><span>Полная санация</span></label>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Укажите зубы и вид лечения для локальной санации.">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_local_sanation" name="plan_local_sanation" data-label="Локальная санация"><span>Локальная санация</span></label>
+            <div class="nest off"><span class="lb">Зуб / зубы – вид лечения:</span><input type="text" class="grow pnest" id="local_sanation_details" name="local_sanation_details" data-label="Зуб / зубы – вид лечения" placeholder="например: 16, 17 – лечение кариеса; 36 – перелечивание каналов" disabled></div>
+          </div>
+          <div class="pitem" data-strict="1" data-kind="wisdom" data-msg="Выберите хотя бы один восьмой зуб.">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_wisdom_removal" name="plan_wisdom_removal" data-label="Удаление восьмых зубов"><span>Удаление восьмых зубов</span></label>
+            <div class="nest off"><label class="cb"><input type="checkbox" id="wisdom_teeth_all" name="wisdom_teeth_all" data-label="Все" disabled><span>Все</span></label><label class="cb"><input type="checkbox" id="wisdom_tooth_18" name="wisdom_tooth_18" data-label="18" disabled><span>18</span></label><label class="cb"><input type="checkbox" id="wisdom_tooth_28" name="wisdom_tooth_28" data-label="28" disabled><span>28</span></label><label class="cb"><input type="checkbox" id="wisdom_tooth_38" name="wisdom_tooth_38" data-label="38" disabled><span>38</span></label><label class="cb"><input type="checkbox" id="wisdom_tooth_48" name="wisdom_tooth_48" data-label="48" disabled><span>48</span></label></div>
+          </div>
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_splint_therapy" name="plan_splint_therapy" data-label="Сплинт-терапия"><span>Сплинт-терапия</span></label>
+          </div>
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_orthodontics" name="plan_orthodontics" data-label="Ортодонтия"><span>Ортодонтия</span></label>
+          </div>
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_implantation" name="plan_implantation" data-label="Имплантация"><span>Имплантация</span></label>
+            <div class="nest off"><span class="lb">Область / вид лечения:</span><input type="text" class="grow pnest" id="implantation_details" name="implantation_details" data-label="Область / вид лечения" placeholder="например: область 46 – установка имплантата" disabled></div>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Укажите зуб, область и вид хирургического лечения.">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_surgery" name="plan_surgery" data-label="Хирургия"><span>Хирургия</span></label>
+            <div class="nest off"><span class="lb">Зуб / область / вид лечения:</span><input type="text" class="grow pnest" id="surgery_details" name="surgery_details" data-label="Зуб / область / вид лечения" placeholder="например: удаление 26; пластика уздечки" disabled></div>
+          </div>
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_total_prosthetics" name="plan_total_prosthetics" data-label="Тотальное протезирование"><span>Тотальное протезирование</span></label>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Укажите зубы и вид реставраций.">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_restorations" name="plan_restorations" data-label="Виниры / композитные реставрации"><span>Виниры / композитные реставрации</span></label>
+            <div class="nest off"><span class="lb">Зубы / какие:</span><input type="text" class="grow pnest" id="restoration_details" name="restoration_details" data-label="Зубы / какие" placeholder="например: 13–23 – керамические виниры" disabled></div>
+          </div>
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_home_hygiene" name="plan_home_hygiene" data-label="Обговорена домашняя гигиена"><span>Обговорена домашняя гигиена</span></label>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Укажите примерные сроки.">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_duration" name="plan_duration" data-label="Примерные сроки"><span>Примерные сроки</span></label>
+            <div class="nest off"><span class="lb"></span><input type="text" class="grow pnest" id="estimated_duration" name="estimated_duration" data-label="Примерные сроки" placeholder="например: 12 месяцев" disabled></div>
+          </div>
+          <div class="pitem" data-strict="1" data-rub="1" data-msg="Укажите примерный бюджет.">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_budget" name="plan_budget" data-label="Примерный бюджет"><span>Примерный бюджет</span></label>
+            <div class="nest off"><input type="text" class="grow pnest" id="estimated_budget" name="estimated_budget" data-label="Примерный бюджет" inputmode="decimal" placeholder="например: 500 000 – 700 000" disabled><span class="rub">₽</span></div>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Заполните «Другое / комментарий» в плане лечения.">
+            <label class="cb"><input type="checkbox" class="pmain" id="plan_other" name="plan_other" data-label="Другое / комментарий"><span>Другое / комментарий</span></label>
+            <div class="nest off"><span class="lb"></span><input type="text" class="grow pnest" id="plan_other_comment" name="plan_other_comment" data-label="Другое / комментарий (уточнение)" placeholder="например: обсуждены альтернативные варианты лечения" disabled></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+    <div class="col">
+
+      <section class="sec" data-order="2" data-part="Часть 1 · Карта первичной консультации" data-title="Степень срочности">
+        <h2>Степень срочности</h2>
+        <div class="bd">
+          <div class="cbs">
+            <label class="cb"><input name="urgency_ostraya_bol_neotlozhnaya_pomosch" type="checkbox" data-label="Острая боль / неотложная помощь"><span>Острая боль / неотложная помощь</span></label>
+            <label class="cb"><input name="urgency_planovoe_obraschenie" type="checkbox" data-label="Плановое обращение"><span>Плановое обращение</span></label>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Укажите срочность в пункте «Другое».">
+            <label class="cb"><input type="checkbox" class="pmain" id="urgency_other" name="urgency_other" data-label="Другое"><span>Другое</span></label>
+            <div class="nest off"><span class="lb">Что именно:</span><input type="text" class="grow pnest" id="urgency_other_text" name="urgency_other_text" data-label="Другое (уточнение)" disabled></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" id="next_step" data-order="30" data-part="Часть 1 · Карта первичной консультации" data-title="3. Следующий шаг">
+        <h2>3. Следующий шаг <span class="req">*</span></h2>
+        <div class="bd">
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="next_ct" name="next_ct" data-label="КТ"><span>КТ</span></label>
+          </div>
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="next_ct_tmj" name="next_ct_tmj" data-label="КТ с ВНЧС"><span>КТ с ВНЧС</span></label>
+          </div>
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="next_ceph3d" name="next_ceph3d" data-label="3D-цефалометрия"><span>3D-цефалометрия</span></label>
+          </div>
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="next_prof_hygiene" name="next_prof_hygiene" data-label="Профессиональная гигиена"><span>Профессиональная гигиена</span></label>
+          </div>
+          <div class="pitem" data-kind="diag" data-strict="1" data-msg="Укажите, какие диагностические данные имеются у пациента.">
+            <label class="cb"><input type="checkbox" class="pmain" id="next_treatment_plan" name="next_treatment_plan" data-label="Составление плана лечения"><span>Составление плана лечения</span></label>
+            <div class="nest off"><span class="lb">Имеющиеся диагностические данные:</span><label class="cb"><input type="checkbox" id="diag_ct" name="diag_ct" data-label="КТ" disabled><span>КТ</span></label><label class="cb"><input type="checkbox" id="diag_mri" name="diag_mri" data-label="МРТ" disabled><span>МРТ</span></label><label class="cb"><input type="checkbox" id="diag_other" name="diag_other" data-label="Другое" disabled><span>Другое:</span></label><input type="text" class="grow" id="diag_other_text" name="diag_other_text" data-label="Другое (диагностика)" placeholder="например: ОПТГ" disabled></div>
+          </div>
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="next_vsd" name="next_vsd" data-label="VSD"><span>VSD</span></label>
+          </div>
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="next_follow_up" name="next_follow_up" data-label="Повторная встреча"><span>Повторная встреча</span></label>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Укажите, какое локальное лечение планируется.">
+            <label class="cb"><input type="checkbox" class="pmain" id="next_local_start" name="next_local_start" data-label="Старт локального лечения"><span>Старт локального лечения</span></label>
+            <div class="nest off"><span class="lb">Что именно:</span><input type="text" class="grow pnest" id="local_start_details" name="local_start_details" data-label="Что именно" disabled></div>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Укажите, какого специалиста рекомендована консультация.">
+            <label class="cb"><input type="checkbox" class="pmain" id="next_specialist_consult" name="next_specialist_consult" data-label="Консультация другого специалиста"><span>Консультация другого специалиста</span></label>
+            <div class="nest off"><span class="lb">Какого?</span><input type="text" class="grow pnest" id="specialist_consult_details" name="specialist_consult_details" data-label="Какого" disabled></div>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Укажите, что именно планируется в пункте «Другое».">
+            <label class="cb"><input type="checkbox" class="pmain" id="next_other" name="next_other" data-label="Другое"><span>Другое</span></label>
+            <div class="nest off"><span class="lb">Что именно:</span><input type="text" class="grow pnest" id="next_other_text" name="next_other_text" data-label="Другое (уточнение)" disabled></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec peach" data-order="40" data-part="Часть 1 · Карта первичной консультации" data-title="4. Реакция и готовность пациента">
+        <h2>4. Реакция и готовность пациента</h2>
+        <div class="bd">
+          <div data-group="Комплексное лечение">
+            <div class="subhead">Комплексное лечение</div>
+            <div class="cbs">
+              <label class="cb"><input name="reaction_kompleksnoe_lechenie_gotov_rassmatrivat" type="checkbox" data-label="Готов(а) рассматривать"><span>Готов(а) рассматривать</span></label>
+              <label class="cb"><input name="reaction_kompleksnoe_lechenie_somnevaetsya" type="checkbox" data-label="Сомневается"><span>Сомневается</span></label>
+              <label class="cb"><input name="reaction_kompleksnoe_lechenie_hochet_tolko_lokalno" type="checkbox" data-label="Хочет только локально"><span>Хочет только локально</span></label>
+              <label class="cb"><input name="reaction_kompleksnoe_lechenie_poka_ne_ponyal_neobhodimost" type="checkbox" data-label="Пока не понял(а) необходимость"><span>Пока не понял(а) необходимость</span></label>
+            </div>
+          </div>
+          <div data-group="Главный барьер">
+            <div class="subhead">Главный барьер</div>
+            <div class="cbs">
+              <label class="cb"><input name="reaction_glavnyy_barer_stoimost" type="checkbox" data-label="Стоимость"><span>Стоимость</span></label>
+              <label class="cb"><input name="reaction_glavnyy_barer_dlitelnost" type="checkbox" data-label="Длительность"><span>Длительность</span></label>
+              <label class="cb"><input name="reaction_glavnyy_barer_slozhnost" type="checkbox" data-label="Сложность"><span>Сложность</span></label>
+              <label class="cb"><input name="reaction_glavnyy_barer_strah_lecheniya" type="checkbox" data-label="Страх лечения"><span>Страх лечения</span></label>
+              <label class="cb"><input name="reaction_glavnyy_barer_hirurgiya" type="checkbox" data-label="Хирургия"><span>Хирургия</span></label>
+              <label class="cb"><input name="reaction_glavnyy_barer_ortodontiya" type="checkbox" data-label="Ортодонтия"><span>Ортодонтия</span></label>
+              <label class="cb"><input name="reaction_glavnyy_barer_net_vremeni" type="checkbox" data-label="Нет времени"><span>Нет времени</span></label>
+              <label class="cb"><input name="reaction_glavnyy_barer_negativnyy_opyt_lecheniya" type="checkbox" data-label="Негативный опыт лечения"><span>Негативный опыт лечения</span></label>
+              <label class="cb"><input name="reaction_glavnyy_barer_ne_vyyavlen" type="checkbox" data-label="Не выявлен"><span>Не выявлен</span></label>
+            </div>
+            <div class="pitem" data-strict="1" data-msg="Заполните «Другое» в пункте «Главный барьер».">
+            <label class="cb"><input type="checkbox" class="pmain" id="reaction_barrier_other" name="reaction_barrier_other" data-label="Другое"><span>Другое</span></label>
+            <div class="nest off"><span class="lb">Что именно:</span><input type="text" class="grow pnest" id="reaction_barrier_other_text" name="reaction_barrier_other_text" data-label="Другое (уточнение)" disabled></div>
+          </div>
+          </div>
+          <div data-group="Кто принимает решение">
+            <div class="subhead">Кто принимает решение</div>
+            <div class="cbs">
+              <label class="cb"><input name="reaction_kto_prinimaet_reshenie_samostoyatelno" type="checkbox" data-label="Самостоятельно"><span>Самостоятельно</span></label>
+              <label class="cb"><input name="reaction_kto_prinimaet_reshenie_sovmestno_s_suprugom_oy" type="checkbox" data-label="Совместно с супругом(ой)"><span>Совместно с супругом(ой)</span></label>
+            </div>
+            <div class="pitem" data-strict="1" data-msg="Укажите, кто принимает решение («Другой человек»).">
+            <label class="cb"><input type="checkbox" class="pmain" id="reaction_decision_other" name="reaction_decision_other" data-label="Другой человек"><span>Другой человек</span></label>
+            <div class="nest off"><span class="lb">Кто:</span><input type="text" class="grow pnest" id="decision_other_person" name="decision_other_person" data-label="Другой человек (уточнение)" disabled></div>
+          </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" data-order="50" data-part="Часть 1 · Карта первичной консультации" data-title="5. Договорённости и дополнительные комментарии">
+        <h2>5. Договорённости и дополнительные комментарии</h2>
+        <div class="bd">
+          <p class="hint">Что обещали пациенту и срок, другие комментарии:</p>
+          <textarea rows="4" data-label="" id="agreements_comments" name="agreements_comments"></textarea>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <section class="sec" data-order="60" data-part="Часть 1 · Карта первичной консультации" data-title="6. Категория пациента">
+    <h2>6. Категория пациента – отметьте одну <span class="req">*</span></h2>
+    <div class="bd">
+      <div class="cats">
+        <label class="cat c1">
+          <span class="nm"><input type="radio" name="patient_category" value="target" data-label="ЦЕЛЕВОЙ"><span>ЦЕЛЕВОЙ</span></span>
+          <span class="ds">Осознанности, ресурсов, доверия, готовности действовать и конструктивности достаточно для перехода к следующему этапу.</span>
+        </label>
+        <label class="cat c2">
+          <span class="nm"><input type="radio" name="patient_category" value="potential" data-label="ПОТЕНЦИАЛЬНЫЙ"><span>ПОТЕНЦИАЛЬНЫЙ</span></span>
+          <span class="ds">Основа для работы есть, но один или несколько критериев требуют развития. Нужны сопровождение, разъяснение и повторный контакт.</span>
+        </label>
+        <label class="cat c3">
+          <span class="nm"><input type="radio" name="patient_category" value="non_target_now" data-label="НЕЦЕЛЕВОЙ СЕЙЧАС"><span>НЕЦЕЛЕВОЙ СЕЙЧАС</span></span>
+          <span class="ds">Сейчас нет достаточной основы для партнёрства: низкая конструктивность или отсутствие готовности к лечению.</span>
+        </label>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ЛИСТ 2 -->
+<div class="sheet">
+  <div class="sheet2head">
+    <h1>Другие данные первичного приёма</h1>
+    <div class="note"><b>Как заполнять.</b> На этом листе обязательных блоков нет. Заполняйте только те данные, которые были выявлены, сообщены пациентом или выполнены на первичном приёме. Чем точнее зафиксированы значимые данные, тем безопаснее и качественнее дальнейшая работа команды.</div>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+
+      <section class="sec" data-order="110" data-part="Часть 2 · Другие данные первичного приёма" data-title="1. Важные данные общего анамнеза">
+        <h2>1. Важные данные общего анамнеза</h2>
+        <div class="bd">
+          <div class="cbs gridauto">
+            <label class="cb"><input name="anamnesis_allergiya" type="checkbox" data-label="Аллергия"><span>Аллергия</span></label>
+            <label class="cb"><input name="anamnesis_arterialnaya_gipertenziya" type="checkbox" data-label="Артериальная гипертензия"><span>Артериальная гипертензия</span></label>
+            <label class="cb"><input name="anamnesis_stenokardiya_ibs" type="checkbox" data-label="Стенокардия / ИБС"><span>Стенокардия / ИБС</span></label>
+            <label class="cb"><input name="anamnesis_infarkt_insult_v_anamneze" type="checkbox" data-label="Инфаркт / инсульт в анамнезе"><span>Инфаркт / инсульт в анамнезе</span></label>
+            <label class="cb"><input name="anamnesis_saharnyy_diabet" type="checkbox" data-label="Сахарный диабет"><span>Сахарный диабет</span></label>
+            <label class="cb"><input name="anamnesis_narushenie_svertyvaniya_antikoagulyanty" type="checkbox" data-label="Нарушение свёртывания / антикоагулянты"><span>Нарушение свёртывания / антикоагулянты</span></label>
+            <label class="cb"><input name="anamnesis_infektsionnye_zabolevaniya" type="checkbox" data-label="Инфекционные заболевания"><span>Инфекционные заболевания</span></label>
+            <label class="cb"><input name="anamnesis_beremennost" type="checkbox" data-label="Беременность"><span>Беременность</span></label>
+            <label class="cb"><input name="anamnesis_onkologicheskie_zabolevaniya" type="checkbox" data-label="Онкологические заболевания"><span>Онкологические заболевания</span></label>
+          </div>
+          <div class="inline"><span class="lb">Аллергия / инфекционные заболевания – уточнить:</span><input name="anamnesis_allergiya_infektsionnye_zabolevaniya_utochnenie" type="text" class="grow" data-label="Аллергия / инфекционные заболевания – уточнение"></div>
+          <div class="pitem" data-strict="1" data-msg="Заполните «Другое значимое» в общем анамнезе.">
+            <label class="cb"><input type="checkbox" class="pmain" id="anamnesis_other" name="anamnesis_other" data-label="Другое значимое"><span>Другое значимое</span></label>
+            <div class="nest off"><span class="lb">Что именно:</span><input type="text" class="grow pnest" id="anamnesis_other_text" name="anamnesis_other_text" data-label="Другое значимое (уточнение)" disabled></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" data-order="120" data-part="Часть 2 · Другие данные первичного приёма" data-title="2. Дополнительно выполнено на первичном приёме">
+        <h2>2. Дополнительно выполнено на первичном приёме</h2>
+        <div class="bd">
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="xray_done" name="xray_done" data-label="Прицельный снимок"><span>Прицельный снимок</span></label>
+            <div class="nest off"><span class="lb">Зуб:</span><input type="text" class="w-sm pnest" id="xray_tooth" name="xray_tooth" data-label="Зуб" disabled></div>
+          </div>
+          <div class="pitem">
+            <label class="cb"><input type="checkbox" class="pmain" id="scan_impressions" name="scan_impressions" data-label="Сканирование / оттиски"><span>Сканирование / оттиски</span></label>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Укажите, какая помощь оказана.">
+            <label class="cb"><input type="checkbox" class="pmain" id="help_provided" name="help_provided" data-label="Оказана помощь"><span>Оказана помощь</span></label>
+            <div class="nest off"><span class="lb">Какая?</span><input type="text" class="grow pnest" id="help_details" name="help_details" data-label="Какая" disabled></div>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Укажите, какой специалист провёл консультацию.">
+            <label class="cb"><input type="checkbox" class="pmain" id="consult_done" name="consult_done" data-label="Консультация другого специалиста"><span>Консультация другого специалиста</span></label>
+            <div class="nest off"><span class="lb">Кого?</span><input type="text" class="grow pnest" id="consult_done_details" name="consult_done_details" data-label="Кого" disabled></div>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Укажите, что именно выполнено в пункте «Другое».">
+            <label class="cb"><input type="checkbox" class="pmain" id="done_other" name="done_other" data-label="Другое"><span>Другое</span></label>
+            <div class="nest off"><span class="lb">Что именно:</span><input type="text" class="grow pnest" id="done_other_text" name="done_other_text" data-label="Другое (уточнение)" disabled></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" data-order="130" data-part="Часть 2 · Другие данные первичного приёма" data-title="3. Данные стоматологического анамнеза">
+        <h2>3. Данные стоматологического анамнеза</h2>
+        <div class="bd">
+          <div data-group="Парафункции">
+            <div class="subhead">Парафункции</div>
+            <div class="cbs">
+              <label class="cb"><input name="dental_history_parafunktsii_nochnoy_bruksizm" type="checkbox" data-label="Ночной бруксизм"><span>Ночной бруксизм</span></label>
+              <label class="cb"><input name="dental_history_parafunktsii_dnevnoy_bruksizm_klinching" type="checkbox" data-label="Дневной бруксизм / клинчинг"><span>Дневной бруксизм / клинчинг</span></label>
+              <label class="cb"><input name="dental_history_parafunktsii_ne_otmechaet" type="checkbox" data-label="Не отмечает"><span>Не отмечает</span></label>
+            </div>
+          </div>
+          <div class="inlinegrp" data-group="Ранее проводилось ортодонтическое лечение">
+            <span class="lb">Ранее проводилось ортодонтическое лечение:</span>
+            <label class="cb"><input type="radio" name="dental_history_ortho_past" data-label="Да"><span>Да</span></label>
+            <label class="cb"><input type="radio" name="dental_history_ortho_past" data-label="Нет"><span>Нет</span></label>
+          </div>
+          <div class="pitem" data-strict="1" data-msg="Заполните «Другое» в стоматологическом анамнезе.">
+            <label class="cb"><input type="checkbox" class="pmain" id="dental_history_other" name="dental_history_other" data-label="Другое"><span>Другое</span></label>
+            <div class="nest off"><span class="lb">Что именно:</span><input type="text" class="grow pnest" id="dental_history_other_text" name="dental_history_other_text" data-label="Другое (уточнение)" disabled></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+    <div class="col">
+
+      <section class="sec" data-order="140" data-part="Часть 2 · Другие данные первичного приёма" data-title="4. Основные объективные находки (обсуждённые с пациентом)">
+        <h2>4. Основные объективные находки <span class="h2note">– обсуждённые с пациентом</span></h2>
+        <div class="bd">
+          <div class="cbs gridauto">
+            <label class="cb"><input name="findings_plohaya_gigiena" type="checkbox" data-label="Плохая гигиена"><span>Плохая гигиена</span></label>
+            <label class="cb"><input name="findings_mnozhestvennyy_karies" type="checkbox" data-label="Множественный кариес"><span>Множественный кариес</span></label>
+            <label class="cb"><input name="findings_nesostoyatelnye_restavratsii" type="checkbox" data-label="Несостоятельные реставрации"><span>Несостоятельные реставрации</span></label>
+            <label class="cb"><input name="findings_vyrazhennye_zubnye_otlozheniya" type="checkbox" data-label="Выраженные зубные отложения"><span>Выраженные зубные отложения</span></label>
+            <label class="cb"><input name="findings_podvizhnost_zubov" type="checkbox" data-label="Подвижность зубов"><span>Подвижность зубов</span></label>
+            <label class="cb"><input name="findings_retsessii" type="checkbox" data-label="Рецессии"><span>Рецессии</span></label>
+            <label class="cb"><input name="findings_deformatsiya_zubnyh_ryadov" type="checkbox" data-label="Деформация зубных рядов"><span>Деформация зубных рядов</span></label>
+            <label class="cb"><input name="findings_otsutstvie_bokovoy_opory" type="checkbox" data-label="Отсутствие боковой опоры"><span>Отсутствие боковой опоры</span></label>
+            <label class="cb"><input name="findings_vyrazhennaya_stiraemost" type="checkbox" data-label="Выраженная стираемость"><span>Выраженная стираемость</span></label>
+            <label class="cb"><input name="findings_snizhenie_vysoty_prikusa" type="checkbox" data-label="Снижение высоты прикуса"><span>Снижение высоты прикуса</span></label>
+            <label class="cb"><input name="findings_skuchennost" type="checkbox" data-label="Скученность"><span>Скученность</span></label>
+            <label class="cb"><input name="findings_glubokiy_prikus" type="checkbox" data-label="Глубокий прикус"><span>Глубокий прикус</span></label>
+            <label class="cb"><input name="findings_patologicheskie_kontakty" type="checkbox" data-label="Патологические контакты"><span>Патологические контакты</span></label>
+            <label class="cb"><input name="findings_skoly_zubov" type="checkbox" data-label="Сколы зубов"><span>Сколы зубов</span></label>
+            <label class="cb"><input name="findings_narushenie_estetiki_frontalnogo_otdela" type="checkbox" data-label="Нарушение эстетики фронтального отдела"><span>Нарушение эстетики фронтального отдела</span></label>
+            <label class="cb"><input name="findings_otek_vospalenie_myagkih_tkaney" type="checkbox" data-label="Отёк / воспаление мягких тканей"><span>Отёк / воспаление мягких тканей</span></label>
+            <label class="cb"><input name="findings_problema_s_implantatom" type="checkbox" data-label="Проблема с имплантатом"><span>Проблема с имплантатом</span></label>
+            <label class="cb"><input name="findings_problemnye_ortopedicheskie_konstruktsii" type="checkbox" data-label="Проблемные ортопедические конструкции"><span>Проблемные ортопедические конструкции</span></label>
+          </div>
+          <div class="inline"><span class="lb">Подвижность – какие зубы:</span><input name="findings_podvizhnost_kakie_zuby" type="text" class="grow" data-label="Подвижность – какие зубы"></div>
+          <div class="pitem" data-strict="1" data-msg="Заполните «Другое» в объективных находках.">
+            <label class="cb"><input type="checkbox" class="pmain" id="findings_other" name="findings_other" data-label="Другое"><span>Другое</span></label>
+            <div class="nest off"><span class="lb">Что именно:</span><input type="text" class="grow pnest" id="findings_other_text" name="findings_other_text" data-label="Другое (уточнение)" disabled></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" data-order="150" data-part="Часть 2 · Другие данные первичного приёма" data-title="5. Функция, мышцы и ВНЧС">
+        <h2>5. Функция, мышцы и ВНЧС</h2>
+        <div class="bd">
+          <div data-group="Жалобы">
+            <div class="subhead">Жалобы</div>
+            <div class="inlinegrp"><label class="cb"><input name="tmj_zhaloby_bol" type="checkbox" data-label="Боль"><span>Боль.</span></label><span class="lb">Где?</span><input name="tmj_zhaloby_bol_gde" type="text" class="grow" data-label="Боль – где"></div>
+            <div class="inlinegrp" data-group="Щелчки">
+              <span class="lb">Щелчки:</span>
+              <label class="cb"><input name="tmj_zhaloby_schelchki_sprava" type="checkbox" data-label="справа"><span>справа</span></label>
+              <label class="cb"><input name="tmj_zhaloby_schelchki_sleva" type="checkbox" data-label="слева"><span>слева</span></label>
+              <label class="cb"><input name="tmj_zhaloby_schelchki_s_dvuh_storon" type="checkbox" data-label="с двух сторон"><span>с двух сторон</span></label>
+            </div>
+            <div class="inlinegrp"><label class="cb"><input name="tmj_zhaloby_ogranichenie_otkryvaniya" type="checkbox" data-label="Ограничение открывания"><span>Ограничение открывания.</span></label><span class="lb">Характер:</span><input name="tmj_zhaloby_ogranichenie_otkryvaniya_harakter" type="text" class="grow" data-label="Ограничение открывания – характер"></div>
+            <div class="cbs" style="margin-top:7px">
+              <label class="cb"><input name="tmj_zhaloby_ustalost_myshts" type="checkbox" data-label="Усталость мышц"><span>Усталость мышц</span></label>
+              <label class="cb"><input name="tmj_zhaloby_utrennyaya_boleznennost" type="checkbox" data-label="Утренняя болезненность"><span>Утренняя болезненность</span></label>
+              <label class="cb"><input name="tmj_zhaloby_golovnye_boli" type="checkbox" data-label="Головные боли"><span>Головные боли</span></label>
+              <label class="cb"><input name="tmj_zhaloby_bol_v_shee" type="checkbox" data-label="Боль в шее"><span>Боль в шее</span></label>
+              <label class="cb"><input name="tmj_zhaloby_zhalob_net" type="checkbox" data-label="Жалоб нет"><span>Жалоб нет</span></label>
+            </div>
+            <div class="inline"><span class="lb">Как давно / срок:</span><input name="tmj_zhaloby_kak_davno_srok" type="text" class="grow" data-label="Как давно / срок"></div>
+            <div class="pitem" data-strict="1" data-msg="Заполните «Другое» в блоке ВНЧС.">
+            <label class="cb"><input type="checkbox" class="pmain" id="tmj_other" name="tmj_other" data-label="Другое"><span>Другое</span></label>
+            <div class="nest off"><span class="lb">Что именно:</span><input type="text" class="grow pnest" id="tmj_other_text" name="tmj_other_text" data-label="Другое (уточнение)" disabled></div>
+          </div>
+          </div>
+
+          <div data-group="Объективно" style="margin-top:12px;border-top:1px dashed var(--line);padding-top:4px">
+            <div class="subhead">Объективно</div>
+            <div class="inlinegrp" data-group="Ограничение открывания">
+              <span class="lb">Ограничение открывания:</span>
+              <label class="cb"><input type="radio" name="tmj_opening_limitation" data-label="Да"><span>Да</span></label>
+              <label class="cb"><input type="radio" name="tmj_opening_limitation" data-label="Нет"><span>Нет</span></label>
+            </div>
+            <div class="inlinegrp" data-group="Аускультация. Щелчок">
+              <span class="lb">Аускультация. Щелчок:</span>
+              <label class="cb"><input name="tmj_obektivno_auskultatsiya_schelchok_sprava" type="checkbox" data-label="справа"><span>справа</span></label>
+              <label class="cb"><input name="tmj_obektivno_auskultatsiya_schelchok_sleva" type="checkbox" data-label="слева"><span>слева</span></label>
+            </div>
+            <div class="inlinegrp" data-group="Боль при пальпации жевательных мышц">
+              <span class="lb">Боль при пальпации жевательных мышц:</span>
+              <label class="cb"><input name="tmj_obektivno_bol_pri_palpatsii_zhevatelnyh_myshts_s" type="checkbox" data-label="справа"><span>справа</span></label>
+              <label class="cb"><input name="tmj_obektivno_bol_pri_palpatsii_zhevatelnyh_myshts_s_2" type="checkbox" data-label="слева"><span>слева</span></label>
+            </div>
+            <div class="inlinegrp" data-group="Боль при пальпации височных мышц">
+              <span class="lb">Боль при пальпации височных мышц:</span>
+              <label class="cb"><input name="tmj_obektivno_bol_pri_palpatsii_visochnyh_myshts_spr" type="checkbox" data-label="справа"><span>справа</span></label>
+              <label class="cb"><input name="tmj_obektivno_bol_pri_palpatsii_visochnyh_myshts_sle" type="checkbox" data-label="слева"><span>слева</span></label>
+            </div>
+            <div class="inlinegrp" data-group="Боль при нагрузочных пробах">
+              <span class="lb">Боль при нагрузочных пробах:</span>
+              <label class="cb"><input name="tmj_obektivno_bol_pri_nagruzochnyh_probah_sprava" type="checkbox" data-label="справа"><span>справа</span></label>
+              <label class="cb"><input name="tmj_obektivno_bol_pri_nagruzochnyh_probah_sleva" type="checkbox" data-label="слева"><span>слева</span></label>
+            </div>
+            <div class="cbs" style="margin-top:7px">
+              <label class="cb"><input name="tmj_obektivno_boleznennost_pri_otkryvanii" type="checkbox" data-label="Болезненность при открывании"><span>Болезненность при открывании</span></label>
+              <label class="cb"><input name="tmj_obektivno_deviatsiya_defleksiya" type="checkbox" data-label="Девиация / дефлексия"><span>Девиация / дефлексия</span></label>
+              <label class="cb"><input name="tmj_obektivno_krepitatsiya" type="checkbox" data-label="Крепитация"><span>Крепитация</span></label>
+              <label class="cb"><input name="tmj_obektivno_asimmetriya_gipertrofiya_myshts" type="checkbox" data-label="Асимметрия / гипертрофия мышц"><span>Асимметрия / гипертрофия мышц</span></label>
+            </div>
+            <div class="inline"><span class="lb">Комментарий:</span><input name="tmj_obektivno_kommentariy" type="text" class="grow" data-label="Комментарий"></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- КНОПКИ -->
+<div class="actions">
+  <div class="readiness" id="readiness">Заполнено 0 из 7 обязательных полей</div>
+  <div class="missing" id="missing" hidden></div>
+  <button type="button" class="btn primary big" id="btn-word">📄 Скачать карту</button>
+  <div class="savehint">Карта сохраняется в <b>двух форматах</b>: HTML (.html) и Word (.docx) – оба файла появятся в папке «Загрузки».<br><b>Оба</b> переместите в папку пациента с фотопротоколом: Word – для карты и печати, HTML – чтобы конструктор плана лечения подтянул данные консультации автоматически.<br>Работать продолжайте <b>в этом файле</b>: скачанная HTML-копия предназначена только для хранения и не редактируется.<br>После скачивания кнопка «Очистить карту» подсветится зелёным – она очищает форму для следующего пациента.</div>
+  <div class="minirow">
+    <button type="button" class="btn clearbtn" id="btn-clear">Очистить карту</button>
+  </div>
+</div>
+
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+'use strict';
+function $(s,r){return (r||document).querySelector(s);}
+function $all(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function pad2(n){return String(n).length<2?'0'+n:String(n);}
+function todayISO(){var d=new Date();return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate());}
+function fmtDate(iso){if(!iso){iso=todayISO();}var p=iso.split('-');return p[2]+'.'+p[1]+'.'+p[0];}
+
+function groupsOf(el){
+  var out=[],n=el.closest('[data-group]');
+  while(n){out.unshift(n.getAttribute('data-group'));n=n.parentElement?n.parentElement.closest('[data-group]'):null;}
+  return out;
+}
+
+/* --- сбор данных секции: обычные поля + связанные пункты (.pitem) --- */
+function pairText(pi,main){
+  var pre=groupsOf(main).join(' – ');
+  var t=(pre?pre+' – ':'')+(main.getAttribute('data-label')||'');
+  var kind=pi.getAttribute('data-kind')||'';
+  if(kind==='wisdom'){
+    var teeth=$all('.nest input',pi).filter(function(c){return c.checked&&c.getAttribute('data-label')!=='Все';})
+      .map(function(c){return c.getAttribute('data-label');});
+    if(teeth.length){t+=': '+teeth.join(', ');}
+  }else if(kind==='diag'){
+    var parts=[];
+    $all('.nest input[type=checkbox]',pi).forEach(function(c){
+      if(!c.checked){return;}
+      var l=c.getAttribute('data-label');
+      if(l==='Другое'){
+        var ot=$('#diag_other_text');
+        l='другое'+((ot&&ot.value.trim())?' – '+ot.value.trim():'');
+      }
+      parts.push(l);
+    });
+    if(parts.length){t+=' – имеющиеся диагностические данные: '+parts.join('; ');}
+  }else{
+    var nt=pi.querySelector('.nest input[type=text], .nest textarea');
+    if(nt&&nt.value.trim()){
+      t+=': '+nt.value.trim();
+      if(pi.getAttribute('data-rub')){t+=' ₽';}
+    }
+  }
+  return t;
+}
+function collectSec(sec){
+  var items=[],doneRadio={};
+  $all('input, textarea',sec).forEach(function(el){
+    if(el.type==='hidden'){return;}
+    var pi=el.closest('.pitem');
+    if(pi){
+      if(el.classList.contains('pmain')&&el.checked){items.push({k:'cb',t:pairText(pi,el)});}
+      return;
+    }
+    var pre=groupsOf(el).join(' – ');
+    if(el.type==='checkbox'){
+      if(el.checked){items.push({k:'cb',t:(pre?pre+' – ':'')+(el.getAttribute('data-label')||'')});}
+    }else if(el.type==='radio'){
+      if(doneRadio[el.name]){return;}
+      doneRadio[el.name]=1;
+      var sel=$('input[name="'+el.name+'"]:checked',sec);
+      if(sel){items.push({k:'cb',t:(pre?pre+': ':'')+(sel.getAttribute('data-label')||'')});}
+    }else{
+      var v=el.value.trim();
+      if(v){items.push({k:'tx',l:el.getAttribute('data-label')||'',p:pre,v:v});}
+    }
+  });
+  return items;
+}
+
+/* ===== мини-генератор .docx (ZIP + WordprocessingML), без внешних библиотек ===== */
+function xe(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function R(t,o){
+  o=o||{};
+  var pr='<w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>'
+    +(o.b?'<w:b/>':'')+(o.i?'<w:i/>':'')+(o.caps?'<w:caps/>':'')
+    +'<w:color w:val="'+(o.c||'1A1A1A')+'"/>'
+    +(o.ls?'<w:spacing w:val="'+o.ls+'"/>':'')
+    +'<w:sz w:val="'+(o.s||21)+'"/><w:szCs w:val="'+(o.s||21)+'"/></w:rPr>';
+  return '<w:r>'+pr+'<w:t xml:space="preserve">'+xe(t)+'</w:t></w:r>';
+}
+function RLINES(lines,o){
+  var out='';
+  lines.forEach(function(l,i){if(i>0){out+='<w:r><w:br/></w:r>';}out+=R(l,o);});
+  return out;
+}
+function P(c,o){
+  o=o||{};
+  var bdr='';
+  if(o.bt||o.bb){
+    bdr='<w:pBdr>'
+      +(o.bt?'<w:top w:val="single" w:sz="'+(o.btSz||6)+'" w:space="4" w:color="'+o.bt+'"/>':'')
+      +(o.bb?'<w:bottom w:val="single" w:sz="'+(o.bbSz||6)+'" w:space="4" w:color="'+o.bb+'"/>':'')
+      +'</w:pBdr>';
+  }
+  var pr='<w:pPr>'+(o.kn?'<w:keepNext/>':'')+bdr
+    +(o.shd?'<w:shd w:val="clear" w:color="auto" w:fill="'+o.shd+'"/>':'')
+    +'<w:spacing w:before="'+(o.sb||0)+'" w:after="'+(o.sa===undefined?60:o.sa)+'" w:line="264" w:lineRule="auto"/>'
+    +(o.ind?'<w:ind w:left="'+o.ind+'"/>':'')
+    +(o.a?'<w:jc w:val="'+o.a+'"/>':'')
+    +'</w:pPr>';
+  return '<w:p>'+pr+c+'</w:p>';
+}
+function TC(w,content,o){
+  o=o||{};
+  var borders=o.nb
+    ?'<w:tcBorders><w:top w:val="nil"/><w:left w:val="nil"/><w:bottom w:val="nil"/><w:right w:val="nil"/></w:tcBorders>'
+    :'';
+  return '<w:tc><w:tcPr><w:tcW w:w="'+w+'" w:type="dxa"/>'+borders
+    +(o.shd?'<w:shd w:val="clear" w:color="auto" w:fill="'+o.shd+'"/>':'')
+    +'<w:vAlign w:val="center"/></w:tcPr>'+content+'</w:tc>';
+}
+function TBL(grid,rows,o){
+  o=o||{};
+  var borders=o.nb
+    ?''
+    :'<w:tblBorders><w:top w:val="single" w:sz="4" w:space="0" w:color="B9C6DC"/><w:left w:val="single" w:sz="4" w:space="0" w:color="B9C6DC"/><w:bottom w:val="single" w:sz="4" w:space="0" w:color="B9C6DC"/><w:right w:val="single" w:sz="4" w:space="0" w:color="B9C6DC"/><w:insideH w:val="single" w:sz="4" w:space="0" w:color="B9C6DC"/><w:insideV w:val="single" w:sz="4" w:space="0" w:color="B9C6DC"/></w:tblBorders>';
+  var total=0;grid.forEach(function(g){total+=g;});
+  return '<w:tbl><w:tblPr><w:tblW w:w="'+total+'" w:type="dxa"/>'+borders
+    +'<w:tblCellMar><w:top w:w="70" w:type="dxa"/><w:left w:w="110" w:type="dxa"/><w:bottom w:w="70" w:type="dxa"/><w:right w:w="110" w:type="dxa"/></w:tblCellMar></w:tblPr>'
+    +'<w:tblGrid>'+grid.map(function(g){return '<w:gridCol w:w="'+g+'"/>';}).join('')+'</w:tblGrid>'
+    +rows.join('')+'</w:tbl>';
+}
+function IMG(rid,cx,cy){
+  return '<w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0">'
+    +'<wp:extent cx="'+cx+'" cy="'+cy+'"/><wp:docPr id="1" name="Логотип"/>'
+    +'<a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">'
+    +'<a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">'
+    +'<pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">'
+    +'<pic:nvPicPr><pic:cNvPr id="1" name="logo.jpeg"/><pic:cNvPicPr/></pic:nvPicPr>'
+    +'<pic:blipFill><a:blip r:embed="'+rid+'"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>'
+    +'<pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="'+cx+'" cy="'+cy+'"/></a:xfrm>'
+    +'<a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic>'
+    +'</wp:inline></w:drawing></w:r>';
+}
+
+/* --- ZIP (метод store, без сжатия) --- */
+var CRC_T=(function(){var t=[],c,i,k;for(i=0;i<256;i++){c=i;for(k=0;k<8;k++){c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);}t[i]=c>>>0;}return t;})();
+function crc32(u8){var c=0xFFFFFFFF,i;for(i=0;i<u8.length;i++){c=CRC_T[(c^u8[i])&0xFF]^(c>>>8);}return (c^0xFFFFFFFF)>>>0;}
+function strU8(s){return new TextEncoder().encode(s);}
+function b64U8(b){var bin=atob(b),u=new Uint8Array(bin.length),i;for(i=0;i<bin.length;i++){u[i]=bin.charCodeAt(i);}return u;}
+function makeZip(files){
+  var chunks=[],central=[],offset=0,now=new Date();
+  var dTime=((now.getHours()<<11)|(now.getMinutes()<<5)|(now.getSeconds()>>1))&0xFFFF;
+  var dDate=(((now.getFullYear()-1980)<<9)|((now.getMonth()+1)<<5)|now.getDate())&0xFFFF;
+  function u16(v){return new Uint8Array([v&255,(v>>>8)&255]);}
+  function u32(v){return new Uint8Array([v&255,(v>>>8)&255,(v>>>16)&255,(v>>>24)&255]);}
+  files.forEach(function(f){
+    var nm=strU8(f.name),crc=crc32(f.data),sz=f.data.length;
+    [u32(0x04034b50),u16(20),u16(0x0800),u16(0),u16(dTime),u16(dDate),u32(crc),u32(sz),u32(sz),u16(nm.length),u16(0)]
+      .forEach(function(x){chunks.push(x);});
+    chunks.push(nm);chunks.push(f.data);
+    central.push({nm:nm,crc:crc,sz:sz,off:offset});
+    offset+=30+nm.length+sz;
+  });
+  var cdStart=offset,cdLen=0;
+  central.forEach(function(e){
+    [u32(0x02014b50),u16(20),u16(20),u16(0x0800),u16(0),u16(dTime),u16(dDate),u32(e.crc),u32(e.sz),u32(e.sz),u16(e.nm.length),u16(0),u16(0),u16(0),u16(0),u32(0),u32(e.off)]
+      .forEach(function(x){chunks.push(x);});
+    chunks.push(e.nm);
+    cdLen+=46+e.nm.length;
+  });
+  [u32(0x06054b50),u16(0),u16(0),u16(central.length),u16(central.length),u32(cdLen),u32(cdStart),u16(0)]
+    .forEach(function(x){chunks.push(x);});
+  var total=0;chunks.forEach(function(c){total+=c.length;});
+  var out=new Uint8Array(total),p=0;
+  chunks.forEach(function(c){out.set(c,p);p+=c.length;});
+  return out;
+}
+
+function lcf(s){
+  s=String(s);
+  if(s.length>1&&/[А-ЯЁ]/.test(s[0])&&s[1]===s[1].toLowerCase()&&!/[А-ЯЁ]/.test(s[1])){return s[0].toLowerCase()+s.slice(1);}
+  return s;
+}
+function dot(s){return /[.!?]$/.test(s)?s:s+'.';}
+function bulletP(t){return P(R('• ',{b:1,c:'1C3667',s:21})+R(t,{s:21}),{ind:240,sa:30});}
+function lineP(lbl,val){return P(R(lbl,{b:1,s:21})+R(val,{s:21}),{ind:240,sa:30});}
+function txP(it){
+  var lbl=(it.p?it.p+' – ':'')+it.l;
+  var lines=it.v.split(/\r?\n/);
+  if(lbl){return P(R(lbl+': ',{b:1,s:21})+RLINES(lines,{s:21}),{ind:240,sa:30});}
+  return P(RLINES(lines,{s:21}),{ind:240,sa:30});
+}
+function subP(t){return P(R(t,{b:1,c:'1C3667',s:20}),{sb:90,sa:40,ind:120,kn:1});}
+function fmtMoney(v){
+  v=v.replace(/\s+/g,' ').trim();
+  v=v.replace(/\d{5,}/g,function(n){return n.replace(/\B(?=(\d{3})+(?!\d))/g,' ');});
+  v=v.replace(/\s*[-\u2013\u2014]\s*/g,'\u2013');
+  return v;
+}
+function checkedMains(sec){
+  return $all('.pitem',sec).filter(function(pi){
+    var m=pi.querySelector('input.pmain');return m&&m.checked;
+  });
+}
+function renderPlan(sec){
+  var skip={plan_duration:1,plan_budget:1,plan_home_hygiene:1,plan_other:1};
+  var num='',n=1;
+  checkedMains(sec).forEach(function(pi){
+    var m=pi.querySelector('input.pmain');
+    if(skip[m.id]){return;}
+    num+=P(R(n+'. ',{b:1,c:'1C3667',s:21})+R(dot(pairText(pi,m)),{s:21}),{ind:240,sa:30});
+    n++;
+  });
+  var dv=$('#plan_duration').checked?$('#estimated_duration').value.trim():'';
+  var bv=$('#plan_budget').checked?$('#estimated_budget').value.trim():'';
+  var out='';
+  if(num||dv||bv){
+    out+=subP('Предварительно обсуждённые направления лечения');
+    out+=num;
+    if(dv){out+=lineP('Ориентировочные сроки: ',dot(dv));}
+    if(bv){out+=lineP('Ориентировочный бюджет: ',fmtMoney(bv)+' руб.');}
+  }
+  var hyg=$('#plan_home_hygiene').checked;
+  var oc=$('#plan_other').checked?$('#plan_other_comment').value.trim():'';
+  if(hyg||oc){
+    out+=subP('Дополнительно обговорено');
+    if(hyg){out+=P(R('Домашняя гигиена.',{s:21}),{ind:240,sa:30});}
+    if(oc){out+=lineP('Другое / комментарий: ',dot(oc));}
+  }
+  return out;
+}
+function renderStep(sec){
+  var out='';
+  checkedMains(sec).forEach(function(pi){
+    var m=pi.querySelector('input.pmain');
+    var t=pairText(pi,m);
+    if(t.indexOf(': ')>-1||t.indexOf(' – ')>-1){t=dot(t);}
+    out+=P(R('→ ',{b:1,c:'1C3667',s:21})+R(t,{s:21}),{ind:240,sa:30});
+  });
+  return out;
+}
+var REACT_RENAME={'Комплексное лечение':'Отношение к комплексному лечению','Кто принимает решение':'Решение принимает'};
+function groupValues(g){
+  var vals=[];
+  $all('input',g).forEach(function(i){
+    if(i.closest('.pitem')||i.closest('.nest')){return;}
+    if(i.type==='checkbox'&&i.checked){vals.push(lcf(i.getAttribute('data-label')||''));}
+  });
+  $all('.pitem',g).forEach(function(pi){
+    var m=pi.querySelector('input.pmain');
+    if(!m||!m.checked){return;}
+    var t=lcf(m.getAttribute('data-label')||'');
+    var nt=pi.querySelector('.nest input[type=text]');
+    if(nt&&nt.value.trim()){t+=' – '+nt.value.trim();}
+    vals.push(t);
+  });
+  return vals;
+}
+function renderReaction(sec){
+  var out='';
+  $all('.bd > [data-group]',sec).forEach(function(g){
+    var name=g.getAttribute('data-group');
+    var vals=groupValues(g);
+    if(!vals.length){return;}
+    out+=lineP((REACT_RENAME[name]||name)+': ',dot(vals.join('; ')));
+  });
+  return out;
+}
+var CAT_SHD={target:'E6F4EA',potential:'F7EAD8',non_target_now:'F2DAD5'};
+function renderCategory(sec){
+  var sel=$('input[name="patient_category"]:checked');
+  if(!sel){return '';}
+  return P(R('КАТЕГОРИЯ ПАЦИЕНТА: '+(sel.getAttribute('data-label')||''),{b:1,c:'1C3667',s:23}),
+    {shd:CAT_SHD[sel.value]||'EEF2F8',sb:170,sa:90,ind:60});
+}
+function renderFindings(sec){
+  var out='',found=[];
+  $all('input[type=checkbox]',sec).forEach(function(i){
+    if(i.closest('.pitem')){return;}
+    if(i.checked){found.push(lcf(i.getAttribute('data-label')||''));}
+  });
+  if(found.length){out+=lineP('Выявлено: ',dot(found.join('; ')));}
+  var pv=$('input[name="findings_podvizhnost_kakie_zuby"]',sec);
+  if(pv&&pv.value.trim()){out+=lineP('Подвижность зубов: ',dot(pv.value.trim()));}
+  var po=$('#findings_other');
+  if(po&&po.checked){
+    var pt=$('#findings_other_text').value.trim();
+    if(pt){out+=lineP('Дополнительно: ',dot(pt));}
+  }
+  return out;
+}
+function renderTmj(sec){
+  var out='',KN1='<<KN1>>';
+  out+=KN1;
+  var zh=$('[data-group="Жалобы"]',sec);
+  var zn=$('input[name="tmj_zhaloby_zhalob_net"]',sec);
+  if(zn&&zn.checked){
+    out+=lineP('Жалобы: ','отсутствуют.');
+  }else if(zh){
+    var vals=[];
+    var b=$('input[name="tmj_zhaloby_bol"]',zh);
+    if(b&&b.checked){
+      var bg=$('input[name="tmj_zhaloby_bol_gde"]',zh).value.trim();
+      vals.push('боль'+(bg?' – '+bg:''));
+    }
+    var clicks=$all('[data-group="Щелчки"] input[type=checkbox]',zh).filter(function(c){return c.checked;})
+      .map(function(c){return c.getAttribute('data-label');});
+    if(clicks.length){vals.push('щелчки '+clicks.join(', '));}
+    var oo=$('input[name="tmj_zhaloby_ogranichenie_otkryvaniya"]',zh);
+    if(oo&&oo.checked){
+      var oh=$('input[name="tmj_zhaloby_ogranichenie_otkryvaniya_harakter"]',zh).value.trim();
+      vals.push('ограничение открывания'+(oh?' – '+oh:''));
+    }
+    ['tmj_zhaloby_ustalost_myshts','tmj_zhaloby_utrennyaya_boleznennost','tmj_zhaloby_golovnye_boli','tmj_zhaloby_bol_v_shee']
+      .forEach(function(nm){
+        var i=$('input[name="'+nm+'"]',zh);
+        if(i&&i.checked){vals.push(lcf(i.getAttribute('data-label')||''));}
+      });
+    var kd=$('input[name="tmj_zhaloby_kak_davno_srok"]',zh);
+    if(kd&&kd.value.trim()){vals.push('как давно / срок – '+kd.value.trim());}
+    var to=$('#tmj_other');
+    if(to&&to.checked){
+      var tt=$('#tmj_other_text').value.trim();
+      if(tt){vals.push('другое – '+tt);}
+    }
+    if(vals.length){out+=lineP('Жалобы: ',dot(vals.join('; ')));}
+  }
+  var ob=$('[data-group="Объективно"]',sec);
+  if(ob){
+    var sel=$('input[name="tmj_opening_limitation"]:checked',ob);
+    if(sel){out+=lineP('Открывание рта: ',(sel.getAttribute('data-label')==='Да')?'ограничено.':'без ограничения.');}
+    $all('.inlinegrp[data-group]',ob).forEach(function(g){
+      var nm=g.getAttribute('data-group');
+      if(nm==='Ограничение открывания'){return;}
+      var vv=$all('input[type=checkbox]',g).filter(function(c){return c.checked;})
+        .map(function(c){return c.getAttribute('data-label');});
+      if(vv.length){out+=lineP(nm+': ',dot(vv.join('; ')));}
+    });
+    var extra=$all('.cbs input[type=checkbox]',ob).filter(function(c){return c.checked;})
+      .map(function(c){return lcf(c.getAttribute('data-label')||'');});
+    if(extra.length){out+=lineP('Дополнительно: ',dot(extra.join('; ')));}
+    var km=$('input[name="tmj_obektivno_kommentariy"]',ob);
+    if(km&&km.value.trim()){out+=lineP('Комментарий: ',dot(km.value.trim()));}
+  }
+  out=out.replace(KN1,'');
+  // связываем первую клиническую строку со следующей (и с заголовком через keepNext заголовка)
+  out=out.replace('<w:pPr>','<w:pPr><w:keepNext/>');
+  return out;
+}
+
+function buildDocx(){
+  var patient=$('#f-patient').value.trim();
+  var doctor=$('#f-doctor').value.trim();
+  var date=fmtDate($('#f-date').value);
+  var img=$('.lgimg');
+  var b64=(img&&img.src.indexOf('base64,')>-1)?img.src.split('base64,')[1]:null;
+  var nw=(img&&img.naturalWidth)||520,nh=(img&&img.naturalHeight)||278;
+  var cx=1500000,cy=Math.round(cx*nh/nw);
+
+  var xml='';
+  var left=b64
+    ?'<w:p><w:pPr><w:spacing w:before="0" w:after="0"/></w:pPr>'+IMG('rId10',cx,cy)+'</w:p>'
+    :P(R('ДЕНТАЛЬ ПРОФИ',{b:1,c:'1C3667',s:26,ls:40}),{sa:0});
+  var right=P(R('Карта первичного приёма',{b:1,c:'1C3667',s:34,caps:1}),{a:'right',sa:20})
+    +P(R('Dental Profi PJS',{b:1,c:'1C3667',s:24,ls:20,caps:1}),{a:'right',sa:0});
+  xml+=TBL([3100,6806],['<w:tr>'+TC(3100,left,{nb:1})+TC(6806,right,{nb:1})+'</w:tr>'],{nb:1});
+  xml+=P('',{bb:'1C3667',bbSz:14,sa:180});
+
+  function irow(k,v){return '<w:tr>'+TC(2900,P(R(k,{b:1,c:'1C3667',s:21}),{sa:0}),{shd:'EEF2F8'})+TC(7006,P(R(v,{s:21}),{sa:0}))+'</w:tr>';}
+  xml+=TBL([2900,7006],[irow('Пациент',patient||'–'),irow('Первичный врач',doctor||'–'),irow('Дата приёма',date)]);
+  xml+=P('',{sa:60});
+
+  var REQUIRED={10:1,20:1,30:1,60:1};
+  var SPECIAL={20:renderPlan,30:renderStep,40:renderReaction,60:renderCategory,140:renderFindings,150:renderTmj};
+  var secs=$all('section.sec').sort(function(a,b){return Number(a.getAttribute('data-order'))-Number(b.getAttribute('data-order'));});
+  var emitted={},counters={};
+  secs.forEach(function(sec){
+    var order=Number(sec.getAttribute('data-order'));
+    var part=sec.getAttribute('data-part')||'';
+    var body='';
+    if(SPECIAL[order]){
+      body=SPECIAL[order](sec);
+    }else{
+      collectSec(sec).forEach(function(it){
+        body+=(it.k==='cb')?bulletP(it.t):txP(it);
+      });
+    }
+    if(!body&&!REQUIRED[order]){return;}
+    if(part&&!emitted[part]){
+      emitted[part]=1;
+      xml+=P(R(part,{b:1,c:'FFFFFF',s:23}),{shd:'1C3667',sb:200,sa:90,ind:60,kn:1});
+    }
+    if(order!==60){
+      var title=sec.getAttribute('data-doc-title')||sec.getAttribute('data-title')||'';
+      var tm=title.match(/^\d+\.\s*(.*)$/);
+      if(tm){
+        counters[part]=(counters[part]||0)+1;
+        title=counters[part]+'. '+tm[1];
+      }
+      xml+=P(R(title,{b:1,c:'1C3667',s:21,caps:1}),{sb:130,sa:40,bb:'B9C6DC',bbSz:4,kn:1});
+    }
+    xml+=body||P(R('– не заполнено',{i:1,c:'8A8F99',s:20}),{ind:240,sa:30});
+  });
+  var now=new Date();
+  var stamp=fmtDate(todayISO())+' '+pad2(now.getHours())+':'+pad2(now.getMinutes());
+  xml+=P(R('Сформировано из интерактивной карты первичного приёма · '+stamp+' · карта v'+($('#form_version')?$('#form_version').value:'2.2'),{c:'8A8F99',s:16}),{sb:220,sa:0,bt:'CFD8E6',btSz:4});
+
+  var doc='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+    +'<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing">'
+    +'<w:body>'+xml
+    +'<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1000" w:right="1000" w:bottom="1000" w:left="1000" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr>'
+    +'</w:body></w:document>';
+
+  var CT='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="jpeg" ContentType="image/jpeg"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>';
+  var RELS='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>';
+  var DRELS='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+    +(b64?'<Relationship Id="rId10" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/image1.jpeg"/>':'')
+    +'</Relationships>';
+  var files=[
+    {name:'[Content_Types].xml',data:strU8(CT)},
+    {name:'_rels/.rels',data:strU8(RELS)},
+    {name:'word/_rels/document.xml.rels',data:strU8(DRELS)},
+    {name:'word/document.xml',data:strU8(doc)}
+  ];
+  if(b64){files.push({name:'word/media/image1.jpeg',data:b64U8(b64)});}
+  return makeZip(files);
+}
+
+var toastTimer=null;
+function toast(msg){
+  var t=$('#toast');t.textContent=msg;t.classList.add('on');
+  clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('on');},2800);
+}
+
+/* ===== валидация и индикатор готовности ===== */
+function fail(el,sec,msg,pi){
+  toast(msg);
+  if(el){el.classList.add('fld-err');setTimeout(function(){el.classList.remove('fld-err');},3500);}
+  var box=sec||pi;
+  if(box){box.classList.add('sec-err');setTimeout(function(){box.classList.remove('sec-err');},3500);}
+  var target=pi||el||sec;
+  if(target&&target.scrollIntoView){target.scrollIntoView({behavior:'smooth',block:'center'});}
+  if(el&&el.focus){el.focus({preventScroll:true});}
+  return false;
+}
+var SECHINT={1:'источник',2:'срочность',20:'план',30:'шаг',40:'реакция',110:'анамнез',120:'лист 2',130:'стом. анамнез',140:'находки',150:'ВНЧС'};
+function strictAllIn(sec){
+  var errs=[];
+  if(!sec){return errs;}
+  var hint=SECHINT[Number(sec.getAttribute('data-order'))]||'';
+  $all('.pitem[data-strict]',sec).forEach(function(pi){
+    var main=pi.querySelector('input.pmain');
+    if(!main||!main.checked){return;}
+    var lab=(main.getAttribute('data-label')||'')+(hint?' ('+hint+')':'');
+    var kind=pi.getAttribute('data-kind')||'';
+    if(kind==='wisdom'){
+      var any=$all('.nest input',pi).some(function(c){return c.checked&&c.getAttribute('data-label')!=='Все';});
+      if(!any){errs.push({el:null,pi:pi,msg:pi.getAttribute('data-msg'),lab:lab});}
+    }else if(kind==='diag'){
+      var o=$('#diag_other'),ot=$('#diag_other_text');
+      if(o&&o.checked&&ot&&!ot.value.trim()){errs.push({el:ot,pi:pi,msg:pi.getAttribute('data-msg'),lab:lab});}
+    }else{
+      var nt=pi.querySelector('.nest input[type=text]');
+      if(nt&&!nt.value.trim()){errs.push({el:nt,pi:pi,msg:pi.getAttribute('data-msg'),lab:lab});}
+    }
+  });
+  return errs;
+}
+function strictErrIn(sec){var a=strictAllIn(sec);return a.length?a[0]:null;}
+function pendingAll(){
+  var out=[];
+  $all('section.sec').sort(function(a,b){return Number(a.getAttribute('data-order'))-Number(b.getAttribute('data-order'));})
+    .forEach(function(s){out=out.concat(strictAllIn(s));});
+  return out;
+}
+function pendingStrict(exceptPi){
+  var secs=$all('section.sec').sort(function(a,b){return Number(a.getAttribute('data-order'))-Number(b.getAttribute('data-order'));});
+  for(var i=0;i<secs.length;i++){
+    var e=strictErrIn(secs[i]);
+    if(e&&e.pi!==exceptPi){return e;}
+  }
+  return null;
+}
+function remindPending(target){
+  var pe=pendingStrict(target&&target.closest?target.closest('.pitem'):null);
+  if(!pe){return;}
+  toast(pe.msg);
+  var mark=pe.el||pe.pi;
+  if(mark){
+    var cls=pe.el?'fld-err':'sec-err';
+    mark.classList.add(cls);
+    setTimeout(function(){mark.classList.remove(cls);},3500);
+  }
+}
+function planFilled(){
+  return $all('#preliminary_treatment_plan input.pmain').some(function(c){return c.checked;});
+}
+function stepFilled(){
+  return $all('#next_step input.pmain').some(function(c){return c.checked;});
+}
+function validate(){
+  var v=$('#f-patient'); if(!v.value.trim()){return fail(v,null,'Заполните поле «Пациент»');}
+  v=$('#f-doctor'); if(!v.value.trim()){return fail(v,null,'Заполните поле «Первичный врач»');}
+  v=$('#f-date'); if(!v.value){return fail(v,null,'Укажите дату приёма');}
+  var q=$('#patient_main_request');
+  if(!q.value.trim()){return fail(q,q.closest('section'),'Заполните блок «1. Основной запрос пациента»');}
+  var sp=$('#preliminary_treatment_plan');
+  if(!planFilled()){return fail(null,sp,'Отметьте хотя бы один пункт в блоке «2. Что обсуждено с пациентом»');}
+  var e=strictErrIn(sp); if(e){return fail(e.el,null,e.msg,e.pi);}
+  var ss=$('#next_step');
+  if(!stepFilled()){return fail(null,ss,'Отметьте хотя бы один пункт в блоке «3. Следующий шаг»');}
+  e=strictErrIn(ss); if(e){return fail(e.el,null,e.msg,e.pi);}
+  if(!$('input[name="patient_category"]:checked')){return fail(null,$('section[data-order="60"]'),'Выберите категорию пациента (блок 6)');}
+  var rest=$all('section.sec').sort(function(a,b){return Number(a.getAttribute('data-order'))-Number(b.getAttribute('data-order'));});
+  for(var i=0;i<rest.length;i++){
+    if(rest[i].id==='preliminary_treatment_plan'||rest[i].id==='next_step'){continue;}
+    e=strictErrIn(rest[i]); if(e){return fail(e.el,null,e.msg,e.pi);}
+  }
+  return true;
+}
+function updateReadiness(){
+  var miss=[];
+  function add(lab,target,el){miss.push({lab:lab,t:target,el:el||null});}
+  var c=0;
+  if($('#f-patient').value.trim()){c++;}else{add('Пациент',$('#f-patient'),$('#f-patient'));}
+  if($('#f-doctor').value.trim()){c++;}else{add('Первичный врач',$('#f-doctor'),$('#f-doctor'));}
+  if($('#f-date').value){c++;}else{add('Дата',$('#f-date'),$('#f-date'));}
+  var q=$('#patient_main_request');
+  if(q.value.trim()){c++;}else{add('Основной запрос',q.closest('section'),q);}
+  var sp=$('#preliminary_treatment_plan');
+  if(planFilled()&&!strictErrIn(sp)){c++;}
+  if(!planFilled()){add('План лечения',sp);}
+  var ss=$('#next_step');
+  if(stepFilled()&&!strictErrIn(ss)){c++;}
+  if(!stepFilled()){add('Следующий шаг',ss);}
+  if($('input[name="patient_category"]:checked')){c++;}
+  else{add('Категория пациента',$('section[data-order="60"]'));}
+  var pend=pendingAll();
+  pend.forEach(function(e){add(e.lab,e.pi,e.el);});
+  var r=$('#readiness'); if(!r){return;}
+  r.classList.remove('ok'); r.classList.remove('warn');
+  if(c<7){r.textContent='Заполнено '+c+' из 7 обязательных полей';}
+  else if(!pend.length){r.classList.add('ok');r.textContent='Все обязательные поля заполнены';}
+  else{r.classList.add('warn');r.textContent='Заполнено 7 из 7 · заполните уточнения в отмеченных пунктах';}
+  var box=$('#missing'); if(!box){return;}
+  box.innerHTML='';
+  if(!miss.length){box.hidden=true;return;}
+  box.hidden=false;
+  var lb=document.createElement('span');lb.className='mlb';lb.textContent='Осталось:';box.appendChild(lb);
+  miss.forEach(function(m){
+    var b=document.createElement('button');
+    b.type='button';b.className='chip';b.textContent=m.lab;
+    b.addEventListener('click',function(){
+      if(m.t&&m.t.scrollIntoView){m.t.scrollIntoView({behavior:'smooth',block:'center'});}
+      var mark=m.el||m.t;
+      if(mark&&mark.classList){
+        var cls=m.el?'fld-err':'sec-err';
+        mark.classList.add(cls);
+        setTimeout(function(){mark.classList.remove(cls);},2500);
+      }
+      if(m.el&&m.el.focus&&!m.el.disabled){m.el.focus({preventScroll:true});}
+    });
+    box.appendChild(b);
+  });
+}
+
+/* ===== вложенные поля, восьмёрки, взаимоисключение ===== */
+function setNest(pi,on,clear){
+  var nest=pi.querySelector('.nest');
+  if(!nest){return;}
+  $all('input',nest).forEach(function(inp){
+    if(clear){ if(inp.type==='checkbox'){inp.checked=false;} else {inp.value='';} }
+    inp.disabled=!on;
+  });
+  if(on){nest.classList.remove('off');}else{nest.classList.add('off');}
+  if(pi.querySelector('#diag_other')){diagSync();}
+}
+function nestHasData(pi){
+  var nest=pi.querySelector('.nest');
+  if(!nest){return false;}
+  return $all('input',nest).some(function(inp){
+    return inp.type==='checkbox'?inp.checked:inp.value.trim()!=='';
+  });
+}
+function diagSync(){
+  var m=$('#next_treatment_plan'),o=$('#diag_other'),t=$('#diag_other_text');
+  if(t){t.disabled=!(m&&m.checked&&o&&o.checked);}
+}
+function onMainChange(){
+  var pi=this.closest('.pitem');
+  if(this.checked){
+    if(this.id==='plan_full_sanation'){
+      var loc=$('#plan_local_sanation');
+      if(loc&&loc.checked){
+        var lp=loc.closest('.pitem');
+        if(nestHasData(lp)&&!window.confirm('Переключить на полную санацию? Данные локальной санации будут удалены.')){
+          this.checked=false;return;
+        }
+        loc.checked=false;setNest(lp,false,true);
+      }
+    }
+    if(this.id==='plan_local_sanation'){
+      var fu=$('#plan_full_sanation');
+      if(fu&&fu.checked){fu.checked=false;}
+    }
+    setNest(pi,true,false);
+    var ft=pi.querySelector('.nest input[type=text]');
+    if(ft&&!ft.disabled){ft.focus({preventScroll:true});}
+  }else{
+    if(nestHasData(pi)&&!window.confirm('Убрать пункт «'+(this.getAttribute('data-label')||'')+'»? Введённые уточнения будут удалены.')){
+      this.checked=true;return;
+    }
+    setNest(pi,false,true);
+  }
+  markDirty();updateReadiness();
+}
+function tmjApply(){
+  var zn=$('input[name="tmj_zhaloby_zhalob_net"]');
+  if(!zn){return;}
+  var box=zn.closest('[data-group="Жалобы"]');
+  var off=zn.checked;
+  $all('input',box).forEach(function(i){
+    if(i===zn){return;}
+    if(i.closest('.nest')){
+      if(off){i.disabled=true;}
+      else{
+        var pi=i.closest('.pitem'),m=pi&&pi.querySelector('input.pmain');
+        i.disabled=!(m&&m.checked);
+      }
+      return;
+    }
+    i.disabled=off;
+  });
+}
+function wireTmj(){
+  var zn=$('input[name="tmj_zhaloby_zhalob_net"]');
+  if(!zn){return;}
+  var box=zn.closest('[data-group="Жалобы"]');
+  zn.addEventListener('change',function(){
+    if(this.checked){
+      var has=$all('input',box).some(function(i){
+        if(i===zn){return false;}
+        return i.type==='checkbox'?i.checked:(i.type==='text'&&i.value.trim()!=='');
+      });
+      if(has&&!window.confirm('Выбрать «Жалоб нет»? Ранее отмеченные жалобы и введённые уточнения будут удалены.')){
+        this.checked=false;return;
+      }
+      $all('input',box).forEach(function(i){
+        if(i===zn){return;}
+        if(i.type==='checkbox'){i.checked=false;}
+        else if(i.type==='text'){i.value='';}
+      });
+      var to=$('#tmj_other');
+      if(to){setNest(to.closest('.pitem'),false,true);}
+    }
+    tmjApply();markDirty();updateReadiness();
+  });
+  tmjApply();
+}
+function wireWisdom(){
+  var all=$('#wisdom_teeth_all');
+  var teeth=['18','28','38','48'].map(function(n){return $('#wisdom_tooth_'+n);});
+  if(!all){return;}
+  all.addEventListener('change',function(){
+    teeth.forEach(function(t){t.checked=all.checked;});
+    markDirty();updateReadiness();
+  });
+  teeth.forEach(function(t){
+    t.addEventListener('change',function(){
+      all.checked=teeth.every(function(x){return x.checked;});
+      markDirty();updateReadiness();
+    });
+  });
+}
+
+/* ===== несохранённые изменения ===== */
+var dirty=false;
+function markDirty(){dirty=true;}
+window.addEventListener('beforeunload',function(e){
+  if(dirty){e.preventDefault();e.returnValue='';}
+});
+
+/* ===== копия карты в HTML =====
+   Браузерное «Сохранить страницу» не годится: значения полей живут в свойствах DOM,
+   а не в атрибутах, и в сохранённом файле карта окажется пустой.
+   Поэтому переносим состояние в атрибуты вручную, вырезаем скрипты (копия – снимок,
+   а не рабочая форма) и вкладываем данные блоком JSON для конструктора плана. */
+function cardData(){
+  var data={}, labels={};
+  $all('input,select,textarea').forEach(function(el){
+    var nm=el.name||el.id; if(!nm) return;
+    var lb=el.getAttribute('data-label');
+    if(el.type==='checkbox'){ if(el.checked){ data[nm]=true; if(lb) labels[nm]=lb; } }
+    else if(el.type==='radio'){ if(el.checked){ data[nm]=el.value||true; if(lb) labels[nm]=lb; } }
+    else if(String(el.value||'').trim()){ data[nm]=el.value.trim(); if(lb) labels[nm]=lb; }
+  });
+  return {
+    kind:'dental-profi-consultation-card',
+    version:($('#form_version')&&$('#form_version').value)||'2.2',
+    savedAt:new Date().toISOString(),
+    patient:{
+      name:($('#f-patient')&&$('#f-patient').value.trim())||'',
+      date:($('#f-date')&&$('#f-date').value)||'',
+      doctor:($('#f-doctor')&&$('#f-doctor').value.trim())||''
+    },
+    fields:data, labels:labels
+  };
+}
+function exportCardHtml(silent){
+  var payload=cardData();
+  var root=document.documentElement.cloneNode(true);
+  var src=$all('input,select,textarea');
+  var dst=[].slice.call(root.querySelectorAll('input,select,textarea'));
+  src.forEach(function(el,i){
+    var c=dst[i]; if(!c) return;
+    if(el.type==='checkbox'||el.type==='radio'){
+      if(el.checked) c.setAttribute('checked','checked'); else c.removeAttribute('checked');
+      c.setAttribute('disabled','disabled');
+    } else if(c.tagName==='TEXTAREA'){
+      c.textContent=el.value; c.setAttribute('readonly','readonly');
+    } else if(c.tagName==='SELECT'){
+      [].slice.call(c.options).forEach(function(o){ if(o.value===el.value) o.setAttribute('selected','selected'); else o.removeAttribute('selected'); });
+      c.setAttribute('disabled','disabled');
+    } else {
+      c.setAttribute('value',el.value); c.setAttribute('readonly','readonly');
+    }
+  });
+  [].slice.call(root.querySelectorAll('script')).forEach(function(x){ x.remove(); });
+  var act=root.querySelector('.actions'); if(act) act.remove();
+  var body=root.querySelector('body');
+  if(body){
+    var note=document.createElement('div');
+    note.setAttribute('style','margin:16px auto;max-width:900px;padding:10px 14px;border-radius:8px;background:#eef4fa;color:#0a3a6e;font:600 13px/1.4 Arial,sans-serif');
+    note.textContent='Сохранённая копия карты первичной консультации · '+(payload.patient.name||'пациент')+' · '+fmtDate(payload.patient.date)+'. Файл содержит данные для конструктора плана лечения – загрузите его в конструкторе кнопкой «Загрузить карту консультации».';
+    body.insertBefore(note, body.firstChild);
+    var dataTag=document.createElement('script');
+    dataTag.type='application/json'; dataTag.id='dp-card-data';
+    dataTag.textContent=JSON.stringify(payload);
+    body.appendChild(dataTag);
+  }
+  var html='<!doctype html>\n'+root.outerHTML;
+  var blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  var safe=(payload.patient.name||'пациент').replace(/[\\/:*?"<>|]+/g,'').replace(/\s+/g,'_').slice(0,60)||'пациент';
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Карта_первичного_приёма_'+safe+'_'+fmtDate(payload.patient.date)+'.html';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},5000);
+  if(!silent) toast('HTML-копия карты сохранена');
+}
+
+/* ===== кнопки ===== */
+function downloadDocx(){
+  if(!validate()){return;}
+  var zip;
+  try{zip=buildDocx();}
+  catch(err){toast('Ошибка формирования файла: '+err.message);return;}
+  var blob=new Blob([zip],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+  var patient=$('#f-patient').value.trim()||'пациент';
+  var safe=patient.replace(/[\\/:*?"<>|]+/g,'').replace(/\s+/g,'_').slice(0,60)||'пациент';
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Карта_первичного_приёма_'+safe+'_'+fmtDate($('#f-date').value)+'.docx';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},5000);
+  /* следом – HTML-копия: два файла всегда уходят в карточку пациента вместе */
+  setTimeout(function(){ try{ exportCardHtml(true); toast('Карта сохранена в двух форматах: HTML и Word'); }
+                         catch(err){ toast('Word сохранён, но HTML-копия не создана: '+err.message); } },400);
+  dirty=false;
+  var cb=$('#btn-clear');
+  if(cb){cb.classList.add('go');cb.textContent='🆕 Новая карта – очистить';}
+}
+function clearCard(){
+  if(!window.confirm('Все введённые данные будут удалены. Продолжить?')){return;}
+  $all('.sheet input').forEach(function(el){
+    if(el.type==='checkbox'||el.type==='radio'){el.checked=false;}
+    else if(el.type==='date'){el.value=todayISO();}
+    else{el.value='';}
+  });
+  $all('.sheet textarea').forEach(function(el){el.value='';});
+  var fv=$('#form_version'); if(fv){fv.value='2.2';}
+  $all('.pitem').forEach(function(pi){setNest(pi,false,true);});
+  diagSync();
+  tmjApply();
+  var cb=$('#btn-clear');
+  if(cb){cb.classList.remove('go');cb.textContent='Очистить карту';}
+  dirty=false;
+  updateReadiness();
+  if(window.scrollTo){window.scrollTo({top:0,behavior:'smooth'});}
+  toast('Форма очищена – можно заполнять новую карту');
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  var d=$('#f-date');if(d&&!d.value){d.value=todayISO();}
+  $('#btn-word').addEventListener('click',downloadDocx);
+  /* печать доступна штатным Ctrl+P, отдельная кнопка не нужна;
+     HTML сохраняется автоматически вместе с Word – отдельной кнопки тоже нет */
+  $('#btn-clear').addEventListener('click',clearCard);
+  $all('.pitem input.pmain').forEach(function(m){m.addEventListener('change',onMainChange);});
+  wireWisdom();
+  wireTmj();
+  var dOther=$('#diag_other');
+  if(dOther){dOther.addEventListener('change',function(){
+    var t=$('#diag_other_text');
+    if(!this.checked&&t){t.value='';}
+    diagSync();
+    if(this.checked&&t&&!t.disabled){t.focus({preventScroll:true});}
+  });}
+  var bud=$('#estimated_budget');
+  if(bud){bud.addEventListener('input',function(){
+    var f=this.value.replace(/[^0-9\s\-\u2013\u2014.,\/]/g,'');
+    if(f!==this.value){this.value=f;}
+  });}
+  document.addEventListener('input',function(e){
+    if(e.target&&e.target.closest&&e.target.closest('.sheet')){markDirty();updateReadiness();}
+  });
+  document.addEventListener('change',function(e){
+    var t=e.target;
+    if(!(t&&t.closest&&t.closest('.sheet'))){return;}
+    markDirty();updateReadiness();
+    if((t.type==='checkbox'&&t.checked)||t.type==='radio'){remindPending(t);}
+  });
+  updateReadiness();
+});
+})();
+</script>
+</body>
+</html>

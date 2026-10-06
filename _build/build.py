@@ -13,6 +13,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import openpyxl
 from PIL import Image
 
@@ -41,6 +42,7 @@ BLOCKS = [
             ("fotoprotokol", "Стандарт фотопротокола", "Требования и порядок снимков", "pdftext", B1 / "4. Стандарты фотопротокола Денталь Профи.pdf"),
             ("pervichnyy-pacient", "Правила оформления первичного пациента", "Памятка для врача, ассистента и координатора", "image", B1 / "6. Изменения в методологии. Шаблоны" / "Правила_оформления_первичного_пациента.png"),
             ("treker-navykov", "Трекер навыков второго ассистента", "Интерактивная самооценка, допуск к следующему блоку", "html", B1 / "6. Изменения в методологии. Шаблоны" / "Трекер навыков — блок 1.html"),
+            ("karta-konsultacii", "Карта первичной консультации", "Рабочая форма, версия 2.2: заполняется в браузере, сохраняется в Word", "html", B1 / "6. Изменения в методологии. Шаблоны" / "Шаблоны" / "Карта первичной консультации Dental Profi PJS.html"),
         ],
     },
     {
@@ -51,6 +53,7 @@ BLOCKS = [
             ("chtenie-kt", "Правила чтения КТ", "Урок 2", "docx", B2 / "Исходники Word" / "2. Правила чтения КТ.docx"),
             ("diagnostika-planirovanie", "Диагностика и планирование комплексной реабилитации", "Урок 3", "docx", B2 / "Исходники Word" / "3. Диагностика и планирование комплексной реабилитации Денталь Профи.docx"),
             ("zadanie-blok-2", "Задание после блока", "Урок 5", "docx", B2 / "Исходники Word" / "5. Задание после блока Диагностика и составление плана лечения..docx"),
+            ("ekzamen-1-2", "Экзамен по блокам 1 и 2", "25 открытых вопросов, устно", "docx", B2 / "Исходники Word" / "Экзамен по 1-2 блоку.docx"),
             ("dopolnenie-plana", "Правило дополнения плана лечения", "", "docx", B2 / "Правило дополнения плана лечения ДП.docx"),
             ("shema-bloka-2", "Схема блока: диагностика и планирование", "Вся логика блока на одном листе", "image", B2 / "7. Диагностика и планирование Dental Profi.png"),
             ("process-plana", "Процесс создания плана лечения", "От первичной консультации до выдачи плана", "html", B2 / "Алгоритм составления плана по новому конструктору" / "Схема — процесс создания плана лечения.html"),
@@ -62,6 +65,8 @@ BLOCKS = [
         "items": [
             ("metodologiya-vsd", "Методология дизайна улыбки (VSD)", "", "docx", B3 / "Исходники Word" / "1. Методология дизайна улыбки Денталь Профи (VSD).docx"),
             ("shema-vsd", "Методология VSD: блок-схема", "", "image", B3 / "5. Методология VSD Денталь Профи (блок-схема).png"),
+            ("videourok-1", "Видеоурок 1. VSD на практике", "Расшифровка видео", "txt", B3 / "2. Видеоуроки" / "Видеоурок 1 VSD на практикеMP4.txt"),
+            ("videourok-2", "Видеоурок 2. VSD на практике", "Расшифровка видео", "txt", B3 / "2. Видеоуроки" / "Видеоурок 2 VSD на практикеmp4.txt"),
         ],
     },
     {
@@ -127,12 +132,14 @@ def page(title, body, depth, desc=""):
 <body>
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img src="{up}assets/logo.png" alt="Денталь Профи"><span>Академия ортопедов</span></a>
-<nav><a href="{up}index.html#bloki">Учебные блоки</a></nav>
+<nav><a href="{up}index.html#bloki">Блоки</a><a href="{up}kabinety.html">Кабинеты</a><a class="login" id="login-link" href="{up}vhod.html">Войти</a></nav>
 </div></header>
 <main>
 {body}
 </main>
 <footer class="foot"><div class="wrap">Академия ортопедов Dental Profi · учебные материалы</div></footer>
+<script>window.SITE_ROOT = "{up}";</script>
+<script src="{up}assets/app.js"></script>
 </body>
 </html>
 """
@@ -219,6 +226,14 @@ def photoprotocol_html(src):
 <h2>Портретный фотопротокол</h2><p>{e(portrait_lead)}</p><ol>{li(portrait)}</ol>"""
 
 
+def txt_html(src):
+    lines = [l.strip() for l in src.read_text(encoding="utf-8").splitlines() if l.strip()]
+    head = '<div class="callout">Расшифровка речи из видеоурока с лёгкой редактурой. Само видео хранится отдельно.</div>'
+    if lines and lines[0].startswith("Расшифровка"):
+        lines = lines[1:]
+    return head + "\n".join(f"<p>{e(l)}</p>" for l in lines)
+
+
 def pdf_pages_html(src, slug, outdir):
     media = outdir / "media" / slug
     if media.exists():
@@ -282,8 +297,9 @@ def xlsx_html(src):
 
 
 def main():
-    for d in OUT.glob("blok-*"):
-        shutil.rmtree(d)
+    for d in [*OUT.glob("blok-*"), OUT / "kabinet"]:
+        if d.exists():
+            shutil.rmtree(d)
     assets = OUT / "assets"
     assets.mkdir(exist_ok=True)
     for name, dst, w in (("синий логотип.png", "logo.png", 360), ("синий знак.png", "mark.png", 128),
@@ -313,12 +329,15 @@ def main():
                     content = image_html(src, slug, bdir)
                 elif kind == "xlsx":
                     content = xlsx_html(src)
+                elif kind == "txt":
+                    content = txt_html(src)
                 draft = f'<div class="draft">{e(b["draft"])}</div>' if b.get("draft") else ""
                 body = f"""<div class="wrap doc">
 <p class="crumbs"><a href="../index.html">Академия</a> · <a href="index.html">Блок {n}. {e(b['title'])}</a></p>
 <h1>{e(title)}</h1>
 {f'<p class="sub">{e(sub)}</p>' if sub else ''}
 {draft}
+<div class="studied" data-mat="b{n}/{slug}"></div>
 <article class="content{' wide' if kind in ('image', 'xlsx') else ''}">
 {content}
 </article>
@@ -346,13 +365,27 @@ def main():
 <p class="kicker">Денталь Профи · центр восстановления улыбок</p>
 <h1>Академия ортопедов</h1>
 <p class="lead">Учебная программа клиники: от работы вторым ассистентом до самостоятельного ведения комплексной ортопедической реабилитации. Блоки проходятся по порядку.</p>
-<a class="btn light" href="blok-1/index.html">Начать с блока 1</a>
+<p class="actions"><a class="btn light" href="blok-1/index.html">Начать с блока 1</a><a class="btn outline" href="vhod.html">Войти в кабинет</a></p>
 </div></section>
 <section class="wrap" id="bloki">
 <h2 class="sec">Учебные блоки</h2>
 <div class="grid">{''.join(cards)}</div>
 </section>"""
+    import pages as _p
+    body += _p.home_extra()
     (OUT / "index.html").write_text(page("Академия ортопедов Dental Profi", body, 0), encoding="utf-8")
+    import json
+    catalog = [{"n": b["n"], "title": b["title"], "draft": bool(b.get("draft")),
+                "items": [{"id": f"b{b['n']}/{slug}", "title": title, "href": f"blok-{b['n']}/{slug}.html"}
+                          for slug, title, *_ in b["items"]]} for b in BLOCKS]
+    (assets / "catalog.js").write_text("window.CATALOG = " + json.dumps(catalog, ensure_ascii=False) + ";\n", encoding="utf-8")
+    import pages
+    journal = docx_html(B1 / "6. Изменения в методологии. Шаблоны" / "Журнал изменений Академии Денталь Профи.docx",
+                        "zhurnal", OUT / "kabinet", False)
+    for path, title, body, depth in pages.build(BLOCKS, journal):
+        out = OUT / path
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(page(title, body, depth), encoding="utf-8")
     (OUT / ".nojekyll").write_text("")
 
 
