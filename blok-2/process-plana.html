@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<title>Денталь Профи · Процесс создания плана лечения</title>
+<style>
+:root{--navy:#0E284B;--navy2:#0A3A6E;--beige:#EFDDCD;--line:#D9E0E8;--muted:#55606E;--green:#0A7F6B;--bg:#E3EAF2}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.45 -apple-system,'Segoe UI',Arial,sans-serif;color:#182235;background:var(--bg);width:1600px}
+.wrap{padding:34px 40px 28px}
+header{background:var(--navy);color:#fff;border-radius:18px;padding:26px 34px;display:flex;justify-content:space-between;align-items:center}
+header h1{font-size:30px;letter-spacing:.02em}
+header .sub{color:#BFD0E4;margin-top:6px;font-size:15px}
+.badge{background:var(--beige);color:var(--navy);font-weight:800;border-radius:999px;padding:10px 20px;font-size:14px;white-space:nowrap}
+.flow{margin-top:22px;display:flex;flex-direction:column;gap:0}
+.stage{background:#fff;border-radius:16px;box-shadow:0 3px 14px rgba(14,40,75,.08);padding:22px 26px;display:grid;grid-template-columns:250px 1fr;gap:24px;border-left:7px solid var(--navy)}
+.stage.s2{border-left-color:#B78B5E}
+.stage.s3{border-left-color:var(--navy2)}
+.stage.s4{border-left-color:var(--green)}
+.who .num{width:44px;height:44px;border-radius:12px;background:var(--navy);color:#fff;font-size:21px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.s2 .who .num{background:#B78B5E}.s3 .who .num{background:var(--navy2)}.s4 .who .num{background:var(--green)}
+.who h2{font-size:19px;color:var(--navy);line-height:1.25}
+.who .role{display:inline-block;margin-top:8px;background:#EDF2F7;color:var(--navy);font-weight:700;font-size:12px;border-radius:999px;padding:5px 12px}
+.who .tool{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.who .tool b{color:var(--navy)}
+.steps{display:flex;flex-direction:column;gap:9px}
+.step{display:flex;gap:12px;align-items:flex-start}
+.step .n{flex-shrink:0;width:26px;height:26px;border-radius:8px;background:#EDF2F7;color:var(--navy);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.step .t{font-size:14.5px}
+.step .t b{color:var(--navy)}
+.step .t .file{display:inline-block;background:var(--beige);color:var(--navy);border-radius:6px;padding:1px 8px;font-size:12.5px;font-weight:700;margin:0 2px}
+.step .t .btn{display:inline-block;background:var(--navy);color:#fff;border-radius:7px;padding:2px 10px;font-size:12px;font-weight:700;margin:0 2px}
+.step .t .hint{color:var(--muted);font-size:13px}
+.arrow{display:flex;align-items:center;gap:14px;padding:8px 0 8px 120px}
+.arrow .ln{width:3px;height:26px;background:var(--navy);border-radius:2px;margin-left:20px}
+.arrow .lbl{background:var(--navy);color:#fff;border-radius:999px;padding:7px 18px;font-size:13px;font-weight:700}
+.handoff{background:#FFF5DF;border:1px solid #E8CFA6;border-radius:12px;padding:10px 14px;margin-top:10px;font-size:13.5px}
+.handoff b{color:#8a5a17}
+footer{margin-top:20px;background:var(--navy);color:#fff;border-radius:14px;padding:16px 26px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+footer .f{color:#BFD0E4}
+footer b{color:var(--beige)}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:9px 22px}
+</style></head><body>
+<div class="wrap">
+<header>
+  <div>
+    <h1>ПРОЦЕСС СОЗДАНИЯ ПЛАНА ЛЕЧЕНИЯ</h1>
+    <div class="sub">Dental Profi Plan System · от первичной консультации до отправки плана пациенту</div>
+  </div>
+  <div class="badge">ДЕНТАЛЬ ПРОФИ · ДЛЯ КОМАНДЫ</div>
+</header>
+
+<div class="flow">
+
+<div class="stage">
+  <div class="who">
+    <div class="num">1</div>
+    <h2>Первичная консультация</h2>
+    <span class="role">Врач</span>
+    <div class="tool">Инструменты: <b>Фоторедактор</b> · <b>Карта первичной консультации</b></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="n">1</span><div class="t"><b>Фотографии:</b> 7 внутриротовых по протоколу; при необходимости – другие фото и портретные. Загрузить в <b>Фоторедактор</b> <span class="hint">(здесь же – режим «Демонстрация пациенту»)</span></div></div>
+    <div class="step"><span class="n">2</span><div class="t">Нажать <span class="btn">Сохранить фотопротокол для плана лечения</span> – скачивается архив</div></div>
+    <div class="step"><span class="n">3</span><div class="t">Разархивировать и перенести папку пациента в <span class="file">Фотокартотеку</span> <span class="hint">– внутри уже лежит</span> <span class="file">Фотопротокол.html</span> <span class="hint">для конструктора</span></div></div>
+    <div class="step"><span class="n">4</span><div class="t">Открыть <b>Карту первичной консультации</b>, занести все данные <b>максимально подробно</b> (запрос, находки, анамнез, барьеры, договорённости). Сохранить – <span class="file">2 файла карты</span> → перенести в папку с фотокартотекой</div></div>
+    <div class="step"><span class="n">5</span><div class="t">Направить пациента на <b>КТ</b></div></div>
+  </div>
+</div>
+
+<div class="arrow"><div class="ln"></div><div class="lbl">КТ готово ↓</div></div>
+
+<div class="stage s2">
+  <div class="who">
+    <div class="num">2</div>
+    <h2>Обработка КТ</h2>
+    <span class="role">Координатор / администратор</span>
+    <div class="tool">Инструменты: <b>Личный кабинет Diagnocat</b></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="n">6</span><div class="t">Загрузить КТ пациента в личный кабинет <b>Diagnocat</b></div></div>
+    <div class="step"><span class="n">7</span><div class="t">Сформировать отчёт и сохранить <span class="file">Отчёт Diagnocat.pdf</span> в <span class="file">папку КТ</span></div></div>
+    <div class="step"><span class="n">8</span><div class="t"><div class="handoff"><b>Передать диагносту (составителю плана):</b> всю папку <b>Фотокартотеки</b> + всю папку <b>КТ</b> с отчётом Diagnocat</div></div></div>
+  </div>
+</div>
+
+<div class="arrow"><div class="ln"></div><div class="lbl">Пакет данных собран ↓</div></div>
+
+<div class="stage s3">
+  <div class="who">
+    <div class="num">3</div>
+    <h2>Составление плана</h2>
+    <span class="role">Диагност / врач-составитель</span>
+    <div class="tool">Инструменты: <b>Конструктор плана лечения</b></div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="n">9</span><div class="t">Открыть <b>Конструктор</b> и на вкладке «Пациент» загрузить (можно перетащить на кнопки): <span class="file">Карту консультации.html</span> → <span class="file">Фотопротокол.html</span> → <span class="file">Отчёт Diagnocat.pdf</span> <span class="hint">– поля, фото и зубная формула заполнятся сами</span></div></div>
+    <div class="step"><span class="n">10</span><div class="t"><b>Подтвердить находки Diagnocat</b> по каждому зубу, перепроверить формулу, при сложном случае – заполнить прогностическую карту, выбрать стратегию, собрать маршрут</div></div>
+    <div class="step"><span class="n">11</span><div class="t">Пройти вкладку <b>«Проверка»</b> – красные пункты блокируют выдачу, жёлтые требуют подтверждения. Открыть <b>предпросмотр плана пациента и плана врача</b> и прочитать оба документа целиком. <b>Нажать <span class="btn">Сохранить черновик</span></b> – файл черновика положить в папку пациента <span class="hint">(обязательно, если план пойдёт на проверку: править и переиздавать можно только черновик, выданные Word / HTML / PDF обратно не загружаются; в браузере черновик также сохраняется автоматически)</span></div></div>
+    <div class="step"><span class="n">12</span><div class="t"><b>Выгрузить документы:</b><div class="cols2" style="margin-top:6px">
+      <span><span class="btn">Скачать пакет для пациента</span> – один архив: внутри папка <span class="file">Фамилия И.О. НОМЕР</span>, в ней план одним именем в <b>HTML + PDF + DOCX</b></span>
+      <span><span class="file">План для врача · Word</span> – внутренний документ: коды, статусы и суммы по прейскуранту</span>
+      <span><span class="hint">Word пациента полностью совпадает с электронной версией – используется для подписи с пациентом</span></span>
+    </div></div></div>
+  </div>
+</div>
+
+<div class="arrow"><div class="ln"></div><div class="lbl">План составлен ↓</div></div>
+
+<div class="stage s4">
+  <div class="who">
+    <div class="num">4</div>
+    <h2>Выдача и сопровождение</h2>
+    <span class="role">Администратор / координатор</span>
+    <div class="tool">Сервер клиники · связь с пациентом</div>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="n">13</span><div class="t">Разархивировать пакет и перенести папку пациента на сервер – в общую папку с планами лечения</div></div>
+    <div class="step"><span class="n">14</span><div class="t"><b>Отправить пациенту:</b> сначала <span class="file">План.html</span> и <span class="file">План.pdf</span>; <span class="file">План.docx</span> – для печати и подписи с пациентом</div></div>
+    <div class="step"><span class="n">15</span><div class="t">Вести диалог с пациентом по плану: этапы, сроки, запись на первый этап</div></div>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <div class="f">Правило: <b>без примечаний первичной консультации план не составляется</b> · каждый этап готовит следующий</div>
+  <div class="f">Dental Profi Plan System</div>
+</footer>
+</div>
+</body></html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Трекер навыков – блок 1, второй ассистент</title>
+<style>
+:root{
+  --bg:#faf9f7; --card:#ffffff; --soft:#f1efe8; --tx:#1a1a19; --tx2:#5f5e5a; --tx3:#898781;
+  --br:rgba(11,11,11,.12); --br2:rgba(11,11,11,.28); --ac:#2a78d6;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#131312; --card:#1d1d1c; --soft:#262625; --tx:#f2f1ee; --tx2:#b4b2a9;
+        --tx3:#898781; --br:rgba(255,255,255,.13); --br2:rgba(255,255,255,.3); --ac:#3987e5;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:22px;font-weight:500;margin:0 0 4px}
+.lead{font-size:13px;color:var(--tx2);margin:0 0 28px}
+.score{display:flex;align-items:baseline;gap:12px;margin-bottom:10px}
+.num{font-size:52px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums}
+.of{font-size:14px;color:var(--tx2)}
+.trkw{position:relative;margin-bottom:8px}
+.trk{height:7px;background:var(--soft);border-radius:4px;overflow:hidden}
+.trk>i{display:block;height:100%;width:0;background:var(--ac);transition:width .25s}
+.mark{position:absolute;top:-4px;left:80%;width:1px;height:15px;background:var(--br2)}
+.stat{font-size:13px;color:var(--tx2);margin:0 0 24px;min-height:20px}
+.card{background:var(--card);border:1px solid var(--br);border-radius:12px;padding:16px 20px;margin-bottom:14px;break-inside:avoid}
+.gates{background:var(--soft);border:none}
+.ghead{font-size:12px;color:var(--tx3);margin-bottom:12px}
+.grow{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.chead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:12px}
+.cname{font-size:16px;font-weight:500}
+.cpts{font-size:12px;color:var(--tx3);font-variant-numeric:tabular-nums;white-space:nowrap}
+label{display:flex;gap:10px;align-items:flex-start;padding:8px 0;cursor:pointer;
+  font-size:13.5px;line-height:1.45;color:var(--tx2);border-top:1px solid var(--br)}
+.grow label{border-top:none;padding:0;align-items:center}
+.card > label:first-of-type{border-top:none}
+label.on{color:var(--tx)}
+input[type=checkbox]{margin:3px 0 0;flex:none;width:15px;height:15px;accent-color:var(--ac);cursor:pointer}
+.grow input[type=checkbox]{margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+button{font:inherit;font-size:13px;padding:8px 14px;border-radius:8px;border:1px solid var(--br2);
+  background:transparent;color:var(--tx);cursor:pointer}
+button:hover{background:var(--soft)}
+.foot{font-size:12px;color:var(--tx3);margin-top:28px;line-height:1.6}
+@media print{
+  body{background:#fff}
+  .bar{display:none}
+  .wrap{padding:0;max-width:none}
+  .grid{display:block}
+  .card{border-color:#ccc;margin-bottom:10px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Трекер навыков – блок 1</h1>
+<p class="lead">Работа вторым ассистентом · Денталь Профи. Отметь то, что уже стало нормой, а не то, что получалось один раз.</p>
+
+<div class="score"><span class="num" id="tot">0</span><span class="of">из 100 баллов</span></div>
+<div class="trkw"><div class="trk"><i id="bar"></i></div><div class="mark"></div></div>
+<p class="stat" id="stat"></p>
+
+<div class="card gates" id="gates">
+  <div class="ghead">Жёсткие пороги промежуточного экзамена · баллов не дают, но без них допуска нет</div>
+  <div class="grow">
+    <label><input type="checkbox">Фотопротокол 100%</label>
+    <label><input type="checkbox">Ошибки в базе ≤ 5%</label>
+    <label><input type="checkbox">Задачи ≥ 95%</label>
+    <label><input type="checkbox">Оценка ≥ 8/10</label>
+  </div>
+</div>
+
+<div class="grid" id="grid">
+
+  <div class="card">
+    <div class="chead"><span class="cname">Ассистирование</span><span class="cpts">0 / 30</span></div>
+    <label><input type="checkbox" data-p="3">Фотопротокол каждого пациента по стандарту, без напоминаний</label>
+    <label><input type="checkbox" data-p="3">Знаю наизусть 7 внутриротовых и 8 портретных ракурсов</label>
+    <label><input type="checkbox" data-p="3">Кадр подготовлен: чистые зеркала, без слюны и пузырей</label>
+    <label><input type="checkbox" data-p="3">Фото загружены в папку пациента в день приёма</label>
+    <label><input type="checkbox" data-p="3">База данных и история болезни заполнены в тот же приём</label>
+    <label><input type="checkbox" data-p="3">Наряды заполнены без ошибок и вовремя</label>
+    <label><input type="checkbox" data-p="3">Приглашение, проводы и рекомендации пациенту</label>
+    <label><input type="checkbox" data-p="3">Передача администраторам информации по следующим записям</label>
+    <label><input type="checkbox" data-p="3">Мелкие клинические поручения беру без напоминания</label>
+    <label><input type="checkbox" data-p="3">Задача делается сразу – нет «потом», скорость растёт от смены к смене</label>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="cname">Дисциплина и лояльность</span><span class="cpts">0 / 30</span></div>
+    <label><input type="checkbox" data-p="5">Прихожу вовремя и готов(а) к смене заранее</label>
+    <label><input type="checkbox" data-p="5">Сказал(а) – сделал(а); о срыве срока предупреждаю заранее</label>
+    <label><input type="checkbox" data-p="5">Не переношу договорённости без согласования</label>
+    <label><input type="checkbox" data-p="5">Держу энергию весь приём: живой голос, внимание, вовлечённость</label>
+    <label><input type="checkbox" data-p="5">Ошибку показываю сразу и сам(а), не прячу</label>
+    <label><input type="checkbox" data-p="5">Соблюдаю регламенты и разделяю концепцию клиники</label>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="cname">Мышление</span><span class="cpts">0 / 20</span></div>
+    <label><input type="checkbox" data-p="4">После каждого пациента: диагноз, план, обоснование «почему так»</label>
+    <label><input type="checkbox" data-p="4">Один кейс к каждому приёму, разбор в свободное окно куратора</label>
+    <label><input type="checkbox" data-p="4">Составляю план лечения и защищаю его перед куратором</label>
+    <label><input type="checkbox" data-p="4">Сначала думаю сам(а), потом спрашиваю; не жду задания</label>
+    <label><input type="checkbox" data-p="4">Одну ошибку не повторяю дважды; меняю подход под новые данные</label>
+  </div>
+
+  <div class="card">
+    <div class="chead"><span class="cname">Коммуникация</span><span class="cpts">0 / 20</span></div>
+    <label><input type="checkbox" data-p="4">Обратная связь от куратора: принял(а), внедрил(а), улучшил(а) – без споров</label>
+    <label><input type="checkbox" data-p="4">Не понял(а) – спрашиваю сразу, не додумываю и не молчу</label>
+    <label><input type="checkbox" data-p="4">Просьбу коллеги или куратора выполняю сразу, без «потом»</label>
+    <label><input type="checkbox" data-p="4">Взаимовыручка: подхватываю, когда коллеге нужны руки</label>
+    <label><input type="checkbox" data-p="4">Ноль токсичности: без конфликтов и разговоров за спиной</label>
+  </div>
+
+</div>
+
+<div class="bar">
+  <button onclick="window.print()">Распечатать</button>
+  <button onclick="reset()">Сбросить</button>
+</div>
+
+<p class="foot">Проходной балл – 80 из 100. Отметка на шкале показывает порог.<br>
+Жёсткие пороги не суммируются с баллами: это условия допуска, а не вклад в оценку.<br>
+Правило отсева: 1 нарушение – предупреждение, 2 нарушения – выход.</p>
+
+</div>
+
+<script>
+var grid=document.getElementById('grid'),gates=document.getElementById('gates'),
+    tot=document.getElementById('tot'),bar=document.getElementById('bar'),stat=document.getElementById('stat');
+var all=[].slice.call(document.querySelectorAll('#grid input, #gates input'));
+var KEY='dp-tracker-block1';
+
+function save(){
+  try{localStorage.setItem(KEY,all.map(function(i){return i.checked?'1':'0'}).join(''))}catch(e){}
+}
+function load(){
+  try{
+    var s=localStorage.getItem(KEY);
+    if(s&&s.length===all.length){all.forEach(function(i,n){i.checked=s[n]==='1'})}
+  }catch(e){}
+}
+function calc(){
+  var sum=0;
+  [].forEach.call(grid.querySelectorAll('.card'),function(c){
+    var s=0,m=0;
+    [].forEach.call(c.querySelectorAll('input'),function(i){
+      var p=parseInt(i.dataset.p,10); m+=p; if(i.checked)s+=p;
+      i.parentNode.className=i.checked?'on':'';
+    });
+    c.querySelector('.cpts').textContent=s+' / '+m;
+    sum+=s;
+  });
+  var gi=[].slice.call(gates.querySelectorAll('input')),open=0;
+  gi.forEach(function(i){ i.parentNode.className=i.checked?'on':''; if(!i.checked)open++; });
+  sum=Math.round(sum);
+  tot.textContent=sum;
+  bar.style.width=sum+'%';
+  if(sum>=80&&open===0) stat.textContent='Проходной балл набран, пороги закрыты – решение о допуске за куратором.';
+  else if(sum>=80) stat.textContent='Балл есть, но не закрыто жёстких порогов: '+open+'. Допуска нет.';
+  else stat.textContent='До проходного балла ещё '+(80-sum)+' баллов'+(open?', и не закрыто порогов: '+open:'')+'.';
+}
+function reset(){ all.forEach(function(i){i.checked=false}); save(); calc(); }
+document.addEventListener('change',function(){save();calc()});
+load(); calc();
+</script>
+</body>
+</html>
